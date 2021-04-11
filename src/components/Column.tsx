@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CardPreview from "./card/CardPreview";
 import InputForm from "./InputForm";
 import { ColumnProps } from "./../interfaces";
+import { CardData, CommentData } from "../classes";
 
 /* Styles */
 const StyledColumn = styled.div`
@@ -28,49 +29,67 @@ const StyledTitle = styled.h1`
   font-weight: bold;
 `;
 
-const Column: React.FC<ColumnProps> = ({ column, addCard }) => {
+const Column: React.FC<ColumnProps> = ({ column }) => {
   /* Ref for input */
   const inputCard = useRef<HTMLInputElement>(null);
   /* Open or close input */
-  const [createValue, setCreateValue] = useState<boolean>(true);
-
+  const [cardInput, setCardInput] = useState<boolean>(true);
+  /* Cards state */
+  const [cards, setCards] = useState<Array<CardData>>(() => JSON.parse(localStorage.getItem('cards')!))
+  console.log(cards)
+  
   /* Press Enter */
   const keyAdd = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-      addCard(inputCard.current!.value, column.id);
-      setCreateValue(!createValue);
+      addCard(inputCard.current!.value);
+      setCardInput(!cardInput);
     }
   };
 
+  /* Add new card */
+  function addCard(title: string): void {
+    if (title.trim()) {
+      // Get comments list
+      const comments: Array<CommentData> = JSON.parse(localStorage.getItem('comments')!)
+      // Create new Card
+      setCards(prev => [...prev, new CardData(cards.length, title, "", "", comments.length)])
+      console.log(column);
+    }
+  }
+
   /* Input is out of focus */
   const blurHandler = () => {
-    setCreateValue(!createValue);
-    addCard(inputCard.current!.value, column.id);
+    addCard(inputCard.current!.value);
+    setCardInput(!cardInput);
   };
 
   /* Focus on the input */
   useEffect(() => {
-    if (!createValue) {
+    if (!cardInput) {
       inputCard.current!.focus();
     }
-  }, [createValue]);
+  }, [cardInput]);
 
   return (
     <StyledColumn>
+      {/* Title */}
       <StyledTitle>{column.title}</StyledTitle>
-      {column.cards.map((card) => (
-        <CardPreview
-          card={card}
-          colTitle={column.title}
-          key={card.id}
-        ></CardPreview>
+      
+      {/* Cards */}
+      {cards.map((card) => (
+          <CardPreview
+            card={card}
+            colTitle={column.title}
+            key={card.id}
+          ></CardPreview>
       ))}
 
-      {createValue ? (
+      
+      {cardInput ? (
         /* Button for creating new card */
         <Button
           title={"+ Добавить еще одну карточку"}
-          clickHandler={() => setCreateValue(!createValue)}
+          clickHandler={() => setCardInput(!cardInput)}
         ></Button>
       ) : (
         /* Creating a new card */
@@ -84,11 +103,11 @@ const Column: React.FC<ColumnProps> = ({ column, addCard }) => {
           <div>
             <Button
               title={"Добавить карточку"}
-              clickHandler={() => setCreateValue(!createValue)}
+              clickHandler={() => setCardInput(!cardInput)}
             ></Button>
             <Button
               title={"X"}
-              clickHandler={() => setCreateValue(!createValue)}
+              clickHandler={() => setCardInput(!cardInput)}
             ></Button>
           </div>
         </>

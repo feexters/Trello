@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CommentInfo } from "../../classes";
+import { CommentData } from "../../classes";
 import { CardModalProps } from "../../interfaces";
 import CardDescription from "./CardDescription";
 import CardTitle from "./CardTitle";
@@ -63,11 +63,10 @@ const StyledClose = styled.div`
 `;
 
 const Card: React.FC<CardModalProps> = ({ card, colTitle, close }) => {
-  const [value, setValue] = useState(card.comments);
-  card.comments = value;
+  const [comments, setComments] = useState<Array<CommentData>>(JSON.parse(localStorage.getItem('comments')!)[card.commentsId]);
 
   function createComment(value: string) {
-    setValue((prev) => [...prev, new CommentInfo(prev.length, value, "autor")]);
+    setComments(prev => [...prev, new CommentData(prev.length, value, "autor")]);
   }
 
   return (
@@ -92,7 +91,7 @@ const Card: React.FC<CardModalProps> = ({ card, colTitle, close }) => {
         <StyledBlock>
           <StyledBlockTitle>Действия</StyledBlockTitle>
           <CommentAdd set={createComment} />
-          {card.comments.map((com) => (
+          {comments.map((com) => (
             <Comment comment={com} key={com.id} />
           ))}
         </StyledBlock>

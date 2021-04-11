@@ -23,4 +23,29 @@ class CardInfo {
     ) {}  
 }
 
+export class ColumnData {
+    constructor(
+        public id: number, 
+        public title: string, 
+        public cardsId: number) {}
+}
+
+export class CardData {
+    constructor( 
+        public id: number, 
+        public title: string, 
+        public author: string, 
+        public description: string, 
+        public commentsId: number
+    ) {}  
+}
+
+export class CommentData {
+    constructor(
+        public id: number, 
+        public value: string, 
+        public author: string
+        ) {}
+}
+
 export {CardInfo, ColumnInfo, CommentInfo} 

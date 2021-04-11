@@ -26,13 +26,15 @@ const StyledCommets = styled.div`
 `;
 
 const CardPreview: React.FC<CardProps> = ({ card, colTitle }) => {
-  const [open, setOpen] = useState<boolean>(false);
-  let commentsCount = card.comments.length;
+  const [modal, setModal] = useState<boolean>(false);
+  let commentsCount = JSON.parse(localStorage.getItem('comments')!)[card.commentsId].length
 
   return (
     <>
-      <StyledCardPreview onClick={() => setOpen(!open)}>
+      <StyledCardPreview onClick={() => setModal(!modal)}>
+        {/* Title */}
         <StyledTitle>{card.title}</StyledTitle>
+        {/* Counter of comments */}
         {commentsCount > 0 && (
           <StyledCommets>
             <i className="far fa-comment"></i>
@@ -40,13 +42,13 @@ const CardPreview: React.FC<CardProps> = ({ card, colTitle }) => {
           </StyledCommets>
         )}
       </StyledCardPreview>
-      {/* Create modal window of card */}
-      {open && (
+      {/* Create a modal window of card */}
+      {modal && (
         <Card
           card={card}
           colTitle={colTitle}
           close={() => {
-            setOpen(!open);
+            setModal(!modal);
           }}
         />
       )}
