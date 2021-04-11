@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import Button from "./Button";
-import InputForm from "./InputForm";
+import Button from "../Button";
+import InputForm from "../InputForm";
 
 const StyledCommentWrap = styled.div`
   display: flex;

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { CardProps } from "../interfaces";
-import Button from "./Button";
-import InputForm from "./InputForm";
+import { CardProps } from "../../interfaces";
+import Button from "../Button";
+import InputForm from "../InputForm";
 
 const StyledDescription = styled.div`
   font-size: 1.5rem;

@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentInfo } from "../classes";
+import { CommentInfo } from "../../classes";
 import styled from "styled-components";
 
 /* Styles */

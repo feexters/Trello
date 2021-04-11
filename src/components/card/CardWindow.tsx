@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CommentInfo } from "../classes";
-import { CardModalProps } from "../interfaces";
+import { CommentInfo } from "../../classes";
+import { CardModalProps } from "../../interfaces";
 import CardDescription from "./CardDescription";
 import CardTitle from "./CardTitle";
-import Comment from "./Comment";
-import CommentAdd from "./CommentAdd";
+import Comment from "../comment/Comment";
+import CommentAdd from "../comment/CommentInput";
 
 const StyledWrapper = styled.div`
   position: fixed;

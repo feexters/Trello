@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardProps } from "./../interfaces";
-import Card from "./Card";
+import { CardProps } from "../../interfaces";
+import Card from "./CardWindow";
 
 /* Styles */
 const StyledCardPreview = styled.div`

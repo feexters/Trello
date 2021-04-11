@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import styled from "styled-components";
-import CardPreview from "./CardPreview";
+import CardPreview from "./card/CardPreview";
 import InputForm from "./InputForm";
 import { ColumnProps } from "./../interfaces";
 
