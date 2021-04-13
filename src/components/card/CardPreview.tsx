@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardProps } from "../../interfaces";
+import { CardPreviewProps } from "../../types";
+import { useData } from "../DataContext";
 import Card from "./CardWindow";
 
 /* Styles */
@@ -12,7 +13,8 @@ const StyledCardPreview = styled.div`
   align-self: center;
   cursor: pointer;
 `;
-const StyledTitle = styled.div`
+const StyledTitle = styled.span`
+  display: block;
   font-size: 1.5rem;
 `;
 
@@ -25,9 +27,13 @@ const StyledCommets = styled.div`
   }
 `;
 
-const CardPreview: React.FC<CardProps> = ({ card, colTitle }) => {
+const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
+  // Open or close modal window of card
   const [modal, setModal] = useState<boolean>(false);
-  let commentsCount = JSON.parse(localStorage.getItem('comments')!)[card.commentsId].length
+  // Get comments
+  const { comments } = useData()
+  // Counter of comments
+  const commentsCount = comments.list[card.commentsId].length
 
   return (
     <>
@@ -42,16 +48,20 @@ const CardPreview: React.FC<CardProps> = ({ card, colTitle }) => {
           </StyledCommets>
         )}
       </StyledCardPreview>
+
+
       {/* Create a modal window of card */}
       {modal && (
         <Card
           card={card}
-          colTitle={colTitle}
+          column={column}
           close={() => {
             setModal(!modal);
           }}
         />
       )}
+
+      
     </>
   );
 };

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Column from "./Column";
 import styled from "styled-components";
-import { ColumnData } from "./../classes";
+import { useData } from "./DataContext";
 
 /* Styles */
 const StyledTable = styled.div`
@@ -10,7 +10,7 @@ const StyledTable = styled.div`
 
 const StyledColumnsList = styled.div`
   display: grid;
-  align-items: center;
+  align-items: flex-start;
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-column-gap: 5px;
@@ -19,17 +19,17 @@ const StyledColumnsList = styled.div`
 
 const Table: React.FC = () => {
   /* Columns information */
-  const columns: Array<ColumnData> = JSON.parse(localStorage.getItem('columns')!)
+  const { columns } = useData()
 
   return (
-    <StyledTable>
-      <StyledColumnsList>
-        {/* Columns */}
-        {columns.map((col) => (
-          <Column column={col} key={col.id} />
-        ))}
-      </StyledColumnsList>
-    </StyledTable>
+      <StyledTable>
+        <StyledColumnsList>
+          {/* Columns */}
+          {columns.map((col) => (
+            <Column column={col} key={col.id} />
+          ))}
+        </StyledColumnsList>
+      </StyledTable>
   );
 };
 

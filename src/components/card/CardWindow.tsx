@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { CommentData } from "../../classes";
-import { CardModalProps } from "../../interfaces";
 import CardDescription from "./CardDescription";
 import CardTitle from "./CardTitle";
 import Comment from "../comment/Comment";
 import CommentAdd from "../comment/CommentInput";
+import { CardModalProps } from "../../types";
+import { useData } from "../DataContext";
 
 const StyledWrapper = styled.div`
   position: fixed;
@@ -48,8 +49,10 @@ const StyledBlockTitle = styled.div`
   font-size: 1.8rem;
 `;
 
-const StyledColumnInfo = styled.div`
-  font-size: 1.5rem;
+const StyledText = styled.div`
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgb(102, 102, 102);
 `;
 
 const StyledColumnTitle = styled.span`
@@ -57,27 +60,39 @@ const StyledColumnTitle = styled.span`
   text-decoration: underline;
   cursor: pointer;
 `;
+
+const StyledCommentList = styled.div`
+  margin: 10px;
+`
+
 const StyledClose = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
 `;
 
-const Card: React.FC<CardModalProps> = ({ card, colTitle, close }) => {
-  const [comments, setComments] = useState<Array<CommentData>>(JSON.parse(localStorage.getItem('comments')!)[card.commentsId]);
+const Card: React.FC<CardModalProps> = ({ card, column, close }) => {
+  // Get commetns list
+  const { comments } = useData()
+  // Comments id
+  const id = card.commentsId
 
-  function createComment(value: string) {
-    setComments(prev => [...prev, new CommentData(prev.length, value, "autor")]);
+  // Add new commment 
+  const addComment = (value: string) =>  {
+    if (value.trim()) {
+      comments.change(id, new CommentData(comments.list[id].length, value, "Name Surname"))
+    }
   }
 
   return (
     <StyledWrapper>
       <StyledCard>
+
         <StyledHeader>
           <div>
             <CardTitle title={card.title} />
-            <StyledColumnInfo>
-              в колонке <StyledColumnTitle>{colTitle}</StyledColumnTitle>
-            </StyledColumnInfo>
+            <StyledText>
+              в колонке <StyledColumnTitle>{column.title}</StyledColumnTitle>
+            </StyledText>
           </div>
 
           <StyledClose onClick={close}>X</StyledClose>
@@ -90,11 +105,17 @@ const Card: React.FC<CardModalProps> = ({ card, colTitle, close }) => {
 
         <StyledBlock>
           <StyledBlockTitle>Действия</StyledBlockTitle>
-          <CommentAdd set={createComment} />
-          {comments.map((com) => (
-            <Comment comment={com} key={com.id} />
-          ))}
+          <CommentAdd addComment={addComment} />
+          
+          <StyledCommentList>
+          <StyledText>Комментарии</StyledText>
+            {/* Show comments */}
+            {comments.list[id].map((com) => (
+              <Comment comment={com} key={com.id} />
+            ))}
+          </StyledCommentList>
         </StyledBlock>
+        
       </StyledCard>
     </StyledWrapper>
   );

@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import Button from "./Button";
 import styled from "styled-components";
 import CardPreview from "./card/CardPreview";
-import InputForm from "./InputForm";
-import { ColumnProps } from "./../interfaces";
-import { CardData, CommentData } from "../classes";
+import { CardData, ColumnData } from "../classes";
+import { useData } from "./DataContext";
+import Input from "./Input";
 
 /* Styles */
 const StyledColumn = styled.div`
@@ -29,89 +29,43 @@ const StyledTitle = styled.h1`
   font-weight: bold;
 `;
 
-const Column: React.FC<ColumnProps> = ({ column }) => {
-  /* Ref for input */
-  const inputCard = useRef<HTMLInputElement>(null);
-  /* Open or close input */
-  const [cardInput, setCardInput] = useState<boolean>(true);
-  /* Cards state */
-  const [cards, setCards] = useState<Array<CardData>>(() => JSON.parse(localStorage.getItem('cards')!))
-  console.log(cards)
-  
-  /* Press Enter */
-  const keyAdd = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      addCard(inputCard.current!.value);
-      setCardInput(!cardInput);
-    }
-  };
+const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
+  // Get comments and cards list
+  const { comments, cards } = useData()
 
   /* Add new card */
   function addCard(title: string): void {
     if (title.trim()) {
-      // Get comments list
-      const comments: Array<CommentData> = JSON.parse(localStorage.getItem('comments')!)
+      // Create new cooments list
+      comments.change(comments.list.length)
       // Create new Card
-      setCards(prev => [...prev, new CardData(cards.length, title, "", "", comments.length)])
-      console.log(column);
+      cards.change(column.id, new CardData(cards.list[column.id].length, title, "", "", comments.list.length ))
     }
   }
-
-  /* Input is out of focus */
-  const blurHandler = () => {
-    addCard(inputCard.current!.value);
-    setCardInput(!cardInput);
-  };
-
-  /* Focus on the input */
-  useEffect(() => {
-    if (!cardInput) {
-      inputCard.current!.focus();
-    }
-  }, [cardInput]);
 
   return (
     <StyledColumn>
       {/* Title */}
       <StyledTitle>{column.title}</StyledTitle>
-      
       {/* Cards */}
-      {cards.map((card) => (
-          <CardPreview
-            card={card}
-            colTitle={column.title}
-            key={card.id}
-          ></CardPreview>
-      ))}
+      {cards.list[column.id] &&
+        cards.list[column.id].map((card) => {
+          return (
+            <CardPreview
+              card={card}
+              column={column}
+              key={card.id}
+            ></CardPreview>
+          );
+        })}
 
-      
-      {cardInput ? (
-        /* Button for creating new card */
-        <Button
-          title={"+ Добавить еще одну карточку"}
-          clickHandler={() => setCardInput(!cardInput)}
-        ></Button>
-      ) : (
-        /* Creating a new card */
-        <>
-          <InputForm
-            keyPress={keyAdd}
-            blurHandler={blurHandler}
-            inputRef={inputCard}
-            placeholder="Введите название карточки"
-          />
-          <div>
-            <Button
-              title={"Добавить карточку"}
-              clickHandler={() => setCardInput(!cardInput)}
-            ></Button>
-            <Button
-              title={"X"}
-              clickHandler={() => setCardInput(!cardInput)}
-            ></Button>
-          </div>
-        </>
-      )}
+      {/* Create new card */}
+      <Input
+        setValue={(value: string) => addCard(value)}
+        placeholder="Введите название карточки"
+        buttons={{ title: "+ Добавить еще одну карточку" }}
+      ></Input>
+
     </StyledColumn>
   );
 };

@@ -1,7 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-import Button from "../Button";
-import InputForm from "../InputForm";
+import Input from "../Input";
 
 const StyledCommentWrap = styled.div`
   display: flex;
@@ -10,42 +9,14 @@ const StyledCommentWrap = styled.div`
   }
 `;
 
-const CommentAdd: React.FC<{ set(value: string): void }> = ({ set }) => {
-  const [change, setChange] = useState<boolean>(false);
-  const inputComment = useRef<HTMLInputElement>(null);
-
-  /* Press Enter */
-  const keyHandler = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      set(inputComment.current!.value);
-    }
-  };
-
+const CommentAdd: React.FC<{ addComment(value: string): void }> = ({  addComment }) => {
   return (
     <StyledCommentWrap>
-      {change ? (
-        <>
-          <InputForm
-            keyPress={keyHandler}
-            inputRef={inputComment}
-            placeholder="Комментарий"
-          />
-          <Button
-            title={"Сохранить"}
-            clickHandler={() => {
-              setChange(!change);
-              set(inputComment.current!.value);
-            }}
-          />
-        </>
-      ) : (
-        <>
-          <Button
-            title={"Добавить комментарий"}
-            clickHandler={() => setChange(!change)}
-          />
-        </>
-      )}
+      <Input
+        setValue={(value: string) => addComment(value)}
+        placeholder="Комментарий"
+        buttons={{title: "Добавить комментрарий"}}
+      />
     </StyledCommentWrap>
   );
 };
