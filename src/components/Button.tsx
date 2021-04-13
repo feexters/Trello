@@ -19,8 +19,7 @@ const StyledButton = styled.button`
         outline: none
     }
 `
-
-interface ButtonProps {
+type ButtonProps = {
     title: string, 
     clickHandler(): void,
 }

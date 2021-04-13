@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardPreviewProps } from "../../types";
-import { useData } from "../DataContext";
+import { CardPreviewProps } from "../types";
+import { useData } from "./DataContext";
 import Card from "./CardWindow";
 
 /* Styles */

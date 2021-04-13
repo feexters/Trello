@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import styled from "styled-components";
-import CardPreview from "./card/CardPreview";
+import CardPreview from "./CardPreview";
 import { CardData, ColumnData } from "../classes";
 import { useData } from "./DataContext";
 import Input from "./Input";

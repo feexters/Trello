@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { CardData } from "../../classes";
-import Input from "../Input";
+import { CardData } from "../classes";
+import Input from "./Input";
 
 const StyledDescriptWrap = styled.div`
   display: flex;

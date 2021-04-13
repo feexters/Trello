@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CommentData } from "../../classes";
+import { CommentData } from "../classes";
 import CardDescription from "./CardDescription";
 import CardTitle from "./CardTitle";
-import Comment from "../comment/Comment";
-import CommentAdd from "../comment/CommentInput";
-import { CardModalProps } from "../../types";
-import { useData } from "../DataContext";
+import Comment from "./Comment";
+import CommentAdd from "./CommentInput";
+import { CardModalProps } from "../types";
+import { useData } from "./DataContext";
 
 const StyledWrapper = styled.div`
   position: fixed;
