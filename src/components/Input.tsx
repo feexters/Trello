@@ -13,6 +13,12 @@ const StyledInput = styled.div`
   }
 `
 
+const StyledButtonWrap = styled.div`
+  & > * {
+    margin-right: 10px;
+  }
+`
+
 const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
   // Ref for input
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,16 +68,17 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
             inputRef={inputRef}
             placeholder={placeholder}
           />
-          <div>
+          <StyledButtonWrap>
             <Button
               title={"Сохранить"}
               clickHandler={() => setInput(!input)}
+              success
             ></Button>
             <Button
               title={"X"}
               clickHandler={() => setInput(!input)}
             ></Button>
-          </div>
+          </StyledButtonWrap>
         </>
       )}
     </StyledInput>

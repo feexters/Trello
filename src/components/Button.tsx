@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{success: boolean}>`
     border: none;
     border-radius: 5px;
     padding: 5px;
     font-size: 1.2rem;
 
-    
-    background-color:rgb(230, 230, 230);
+    color: ${props => props.success ? 'white' : 'black'};
+    background-color: ${props => props.success ? 'rgb(97, 189, 79)' : 'rgb(230, 230, 230)'};
     cursor: pointer;
 
     &:hover {
-        background-color: rgb(200, 200, 200);
+        /* background-color: rgb(200, 200, 200); */
+        background-color: ${props => props.success ? 'rgb(47, 177, 43)' : 'rgb(200, 200, 200)'};
     }
 
     &:focus {
@@ -22,12 +23,13 @@ const StyledButton = styled.button`
 type ButtonProps = {
     title: string, 
     clickHandler(): void,
+    success?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({title, clickHandler}) => {
+const Button: React.FC<ButtonProps> = ({ title, clickHandler, success=  false }) => {
     
     return (
-       <StyledButton onClick={clickHandler}>{title}</StyledButton> 
+       <StyledButton onClick={clickHandler} success={success}>{title}</StyledButton> 
     );
 }
 
