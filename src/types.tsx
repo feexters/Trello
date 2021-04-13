@@ -1,4 +1,4 @@
-import { CardData, ColumnData } from "./classes";
+import { ColumnData, CardData } from "./interfaces"
 
 export type CardModalProps = {
     card: CardData,

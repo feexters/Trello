@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { CommentData } from "../classes";
 import CardDescription from "./CardDescription";
 import CardTitle from "./CardTitle";
 import Comment from "./Comment";
 import CommentAdd from "./CommentInput";
 import { CardModalProps } from "../types";
 import { useData } from "./DataContext";
+import { CommentData } from "../interfaces"
 
 const StyledWrapper = styled.div`
   position: fixed;
@@ -79,7 +79,14 @@ const Card: React.FC<CardModalProps> = ({ card, column, close }) => {
   // Add new commment 
   const addComment = (value: string) =>  {
     if (value.trim()) {
-      comments.change(id, new CommentData(comments.list[id].length, value, "Name Surname"))
+      // Create new comment
+      const newComment: CommentData = {
+        id: comments.list[id].length,
+        value: value,
+        author: "Name Surname"
+      }
+      // Add new comment in list
+      comments.change(id, newComment)
     }
   }
 

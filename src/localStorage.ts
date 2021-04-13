@@ -1,11 +1,11 @@
-import { CardData, ColumnData, CommentData } from "./classes";
+import { ColumnData, CardData, CommentData } from "./interfaces";
 
 /* Columns information */
-const columnsList = [
-    new ColumnData(0, "TODO", 0),
-    new ColumnData(1, "In Progress", 1),
-    new ColumnData(2, "Testing", 2),
-    new ColumnData(3, "Done", 3),
+const columnsList: Array<ColumnData> = [
+    {id: 0, title: "TODO", cardsId: 0},
+    {id: 1, title: "TODO", cardsId: 1},
+    {id: 2, title: "TODO", cardsId: 2},
+    {id: 3, title: "TODO", cardsId: 3}
 ];
 
 /* Cards information */
@@ -14,6 +14,7 @@ const cardsList: Array<Array<CardData>> = [[], [], [], []]
 /* Comments information */
 const commentsList: Array<Array<CommentData>> = []
 
+// Create localstorage
 if (!localStorage.getItem('columns')) localStorage.setItem('columns', JSON.stringify(columnsList))
 if (!localStorage.getItem('cards')) localStorage.setItem('cards', JSON.stringify(cardsList))
 if (!localStorage.getItem('comments')) localStorage.setItem('comments', JSON.stringify(commentsList))

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CardData, ColumnData, CommentData } from '../classes';
+import {  ColumnData, CardData, CommentData } from '../interfaces';
 
 
 const DataContext = React.createContext({

@@ -1,8 +1,7 @@
 import React from "react";
-import Button from "./Button";
 import styled from "styled-components";
 import CardPreview from "./CardPreview";
-import { CardData, ColumnData } from "../classes";
+import { ColumnData, CardData } from '../interfaces'
 import { useData } from "./DataContext";
 import Input from "./Input";
 
@@ -36,10 +35,18 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   /* Add new card */
   function addCard(title: string): void {
     if (title.trim()) {
+      // New Card
+      const newCard: CardData = {
+        id: cards.list[column.id].length,
+        title: title,
+        author: "Name Surname",
+        description: "",
+        commentsId: comments.list.length
+      }
       // Create new cooments list
       comments.change(comments.list.length)
       // Create new Card
-      cards.change(column.id, new CardData(cards.list[column.id].length, title, "", "", comments.list.length ))
+      cards.change(column.id, newCard)
     }
   }
 

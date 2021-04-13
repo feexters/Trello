@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardData } from "../classes";
+import { CardData } from "../interfaces";
 import Input from "./Input";
 
 const StyledDescriptWrap = styled.div`

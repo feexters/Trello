@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentInfo } from "../classes";
+import { CommentData } from "../interfaces";
 import styled from "styled-components";
 
 /* Styles */
@@ -21,7 +21,7 @@ const StyledAuthor = styled.div`
   font-weight: 400;
 `;
 
-const Comment: React.FC<{ comment: CommentInfo }> = ({ comment }) => {
+const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
   return (
     <StyledComment>
       <StyledAuthor>{comment.author}:</StyledAuthor>
