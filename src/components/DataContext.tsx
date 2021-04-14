@@ -3,6 +3,11 @@ import {  ColumnData, CardData, CommentData } from '../interfaces';
 
 
 const DataContext = React.createContext({
+    user: {
+        name: localStorage.getItem('user'),
+        change: ((value: string | null) => {})
+    },
+
     columns: Array<ColumnData>(),
     
     cards: {
@@ -23,7 +28,13 @@ export function useData() {
 const DataProvider: React.FC = ({ children }) => {
     const [comments, setComments] = useState<Array<Array<CommentData>>>(JSON.parse(localStorage.getItem('comments')!))
     const [cards, setCards]       = useState<Array<Array<CardData>>>(JSON.parse(localStorage.getItem('cards')!))
+    const [userName, setUserName] = useState<string | null>(localStorage.getItem('user'))
     const columns: Array<ColumnData> = JSON.parse(localStorage.getItem('columns')!)
+
+    const changeUserName = (value: string | null) => {
+        setUserName(value)
+        localStorage.setItem('user', userName!)
+    }
     
     
     // Render new comments
@@ -81,6 +92,11 @@ const DataProvider: React.FC = ({ children }) => {
 
     // Context values
     const value = {
+        user: {
+            name: userName,
+            change: changeUserName
+        },
+
         columns: columns,
 
         cards: {

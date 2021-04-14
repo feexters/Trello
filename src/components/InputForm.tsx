@@ -19,17 +19,19 @@ interface InputProps {
     placeholder: string,
     keyPress(event: React.KeyboardEvent): void,
     blurHandler?(): void
-    inputRef: React.RefObject<HTMLInputElement>
+    inputRef: React.RefObject<HTMLInputElement>,
+    changeHandler?(): void
 }
 
-const InputForm: React.FC<InputProps> = ({placeholder, keyPress, blurHandler, inputRef}) => {
+const InputForm: React.FC<InputProps> = ({placeholder, keyPress, blurHandler, inputRef, changeHandler = () => {}}) => {
     return (
         <StyledInput 
             onKeyPress={keyPress}
             onBlur={blurHandler}
             ref={inputRef}
             type="text"
-            placeholder={placeholder}>
+            placeholder={placeholder}
+            onChange={changeHandler}>
         </StyledInput>
     );
 }

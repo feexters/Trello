@@ -30,7 +30,7 @@ const StyledTitle = styled.h1`
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   // Get comments and cards list
-  const { comments, cards } = useData()
+  const { comments, cards, user } = useData()
 
   /* Add new card */
   function addCard(title: string): void {
@@ -39,7 +39,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
       const newCard: CardData = {
         id: cards.list[column.id].length,
         title: title,
-        author: "Name Surname",
+        author: user.name!,
         description: "",
         commentsId: comments.list.length
       }

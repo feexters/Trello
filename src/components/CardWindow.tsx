@@ -72,7 +72,7 @@ const StyledClose = styled.div`
 
 const Card: React.FC<CardModalProps> = ({ card, column, close }) => {
   // Get commetns list
-  const { comments } = useData()
+  const { comments, user } = useData()
   // Comments id
   const id = card.commentsId
 
@@ -83,7 +83,7 @@ const Card: React.FC<CardModalProps> = ({ card, column, close }) => {
       const newComment: CommentData = {
         id: comments.list[id].length,
         value: value,
-        author: "Name Surname"
+        author: user.name!
       }
       // Add new comment in list
       comments.change(id, newComment)

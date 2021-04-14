@@ -19,7 +19,7 @@ const StyledColumnsList = styled.div`
 
 const Table: React.FC = () => {
   /* Columns information */
-  const { columns } = useData()
+  const { columns, user } = useData()
 
   return (
       <StyledTable>
