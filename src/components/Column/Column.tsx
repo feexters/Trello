@@ -12,7 +12,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
 
   function addCard(title: string): void {
     if (title.trim()) {
-      // New Card
+
       const newCard: CardData = {
         id: getId(),
         title: title,
@@ -28,8 +28,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   return (
     <Wrapper>
       <Title>{column.title}</Title>
-      {/* Cards */
-        getCardsById(column.id, cards.list).map((card) => {
+      { getCardsById(column.id, cards.list).map((card) => {
           return (
             <CardPreview
               card={card}

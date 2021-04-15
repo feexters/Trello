@@ -12,7 +12,6 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
 
   const addComment = (value: string) =>  {
     if (value.trim()) {
-      // Create new comment
       const newComment: CommentData = {
         id: getId(),
         value: value,

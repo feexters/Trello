@@ -4,13 +4,11 @@ import styled from "styled-components";
 import { useData } from "../context/index";
 
 const Table: React.FC = () => {
-  /* Columns information */
   const { columns } = useData()
 
   return (
       <Wrapper>
         <ColumnsList>
-          {/* Columns */}
           {columns.map((col) => (
             <Column column={col} key={col.id} />
           ))}
