@@ -26,10 +26,18 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
     }
   }
 
-  return (
-    <Wrapper>
-      <Card>
+  const onClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if ((event.target as Element).classList.contains("overlay")) {
+      close()
+    }
+  }
 
+  return (
+    <Wrapper
+      className={"overlay"}
+      onClick={onClose}
+    >
+      <Card>
         <CardHeader>
           <div>
             <CardTitle title={card.title} />
@@ -49,16 +57,15 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
         <Block>
           <BlockTitle>Действия</BlockTitle>
           <CommentInput addComment={addComment} />
-          
+
           <CommentList>
-          <Text>Комментарии</Text>
+            <Text>Комментарии</Text>
             {/* Show comments */}
             {comments.list[id].map((com) => (
               <Comment comment={com} key={com.id} />
             ))}
           </CommentList>
         </Block>
-        
       </Card>
     </Wrapper>
   );

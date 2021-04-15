@@ -1,2 +1,2 @@
-import Storage from './storage-services'
-export { Storage } 
+import StorageService from './storage-service'
+export { StorageService } 

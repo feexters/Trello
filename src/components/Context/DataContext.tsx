@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {  ColumnData, CardData, CommentData } from '../../lib/interfaces/interfaces';
-import { Storage } from '../../lib/utils'
+import { StorageService } from '../../lib/utils'
 
 
 const DataContext = React.createContext({
@@ -27,14 +27,14 @@ export function useData() {
 }
 
 const DataProvider: React.FC = ({ children }) => {
-    const [comments, setComments] = useState<Array<Array<CommentData>>>(JSON.parse(localStorage.getItem('comments')!))
-    const [cards, setCards]       = useState<Array<Array<CardData>>>(JSON.parse(localStorage.getItem('cards')!))
-    const [userName, setUserName] = useState<string | null>(localStorage.getItem('user'))
+    const [comments, setComments] = useState<Array<Array<CommentData>>>(StorageService.getComments())
+    const [cards, setCards]       = useState<Array<Array<CardData>>>(StorageService.getCards())
+    const [userName, setUserName] = useState<string | null>(StorageService.getUser())
     const columns: Array<ColumnData> = JSON.parse(localStorage.getItem('columns')!)
 
     const changeUserName = (value: string | null) => {
         setUserName(value)
-        localStorage.setItem('user', userName!)
+        StorageService.addUser(value!)
     }
     
     // Render new comments
@@ -80,14 +80,11 @@ const DataProvider: React.FC = ({ children }) => {
     }
 
     useEffect(() => {
-        //Update storage
-        Storage.setCards(JSON.stringify(cards))
+        StorageService.addCards(cards)
     },[cards]);
 
     useEffect(() => {
-       // Update Storage
-       Storage.setUser(JSON.stringify(comments))
-        // localStorage.setItem('comments', JSON.stringify(comments))
+       StorageService.addComments(comments)
     },[comments]);
 
 
