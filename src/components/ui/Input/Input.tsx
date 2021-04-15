@@ -1,29 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { InputSettings } from '../types';
-import Button from './Button';
-import InputForm from './InputForm';
-
-const StyledInput = styled.div`
-  width: 100%;
-  max-width: 400px;
-  
-  & > * {
-    margin: 5px
-  }
-`
-
-const StyledButtonWrap = styled.div`
-  & > * {
-    margin-right: 10px;
-  }
-`
+import { InputSettings } from '../../../types';
+import { InputForm, Button } from '../index';
 
 const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
   // Ref for input
   const inputRef = useRef<HTMLInputElement>(null);
   // Open or close input
-  const [input, setInput] = useState<boolean>(true);
+  const [isVisibleInput, setIsVisibleInput] = useState<boolean>(true);
   
   /* Press Enter */
   const keyPress = (event: React.KeyboardEvent) => {
@@ -31,7 +15,7 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
     if (event.key === "Enter") {
       setValue(inputRef.current!.value);
       // Close input
-      setInput(!input);
+      setIsVisibleInput(!isVisibleInput);
     }
   };
 
@@ -40,24 +24,24 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
     // Add card
     setValue(inputRef.current!.value);
     // Close input
-    setInput(!input);
+    setIsVisibleInput(!isVisibleInput);
   };
 
   /* Focus on the input */
   useEffect(() => {
-    if (!input) {
+    if (!isVisibleInput) {
       inputRef.current!.focus();
     }
-  }, [input]);
+  }, [isVisibleInput]);
 
   return (
-    <StyledInput>
+    <InputWrapper>
       {/* Create cards */}
-      {input ? (
+      {isVisibleInput ? (
         /* Open input area */
         <Button
           title={buttons.title}
-          clickHandler={() => setInput(!input)}
+          clickHandler={() => setIsVisibleInput(!isVisibleInput)}
         ></Button>
       ) : (
         /* Creating a new card */
@@ -68,21 +52,36 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
             inputRef={inputRef}
             placeholder={placeholder}
           />
-          <StyledButtonWrap>
+          <ButtonWrapper>
             <Button
               title={"Сохранить"}
-              clickHandler={() => setInput(!input)}
+              clickHandler={() => setIsVisibleInput(!isVisibleInput)}
               success
             ></Button>
             <Button
               title={"X"}
-              clickHandler={() => setInput(!input)}
+              clickHandler={() => setIsVisibleInput(!isVisibleInput)}
             ></Button>
-          </StyledButtonWrap>
+          </ButtonWrapper>
         </>
       )}
-    </StyledInput>
+    </InputWrapper>
   );
 }
 
 export default Input;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  max-width: 400px;
+  
+  & > * {
+    margin: 5px
+  }
+`
+
+const ButtonWrapper = styled.div`
+  & > * {
+    margin-right: 10px;
+  }
+`

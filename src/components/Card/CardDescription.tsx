@@ -1,13 +1,6 @@
 import styled from "styled-components";
-import { CardData } from "../interfaces";
-import Input from "./Input";
-
-const StyledDescriptWrap = styled.div`
-  display: flex;
-  & > * {
-    margin-right: 10px;
-  }
-`;
+import { CardData } from "../../interfaces";
+import { Input } from "../ui/index";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   
@@ -17,14 +10,21 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   }
 
   return (
-    <StyledDescriptWrap>
+    <Wrapper>
       <Input
         setValue={(value) => addDescription(value)}
         placeholder="Введите описание"
         buttons={{ title:"Изменить" }}
       />
-    </StyledDescriptWrap>
+    </Wrapper>
   );
 };
 
 export default CardDescription;
+
+const Wrapper = styled.div`
+  display: flex;
+  & > * {
+    margin-right: 10px;
+  }
+`;

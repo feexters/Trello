@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import DataProvider from "./components/DataContext";
-import Login from "./components/Login";
-import Table from "./components/Table";
+import React from "react";
+import { DataProvider } from "./components/Context/index";
+import { Login } from "./components/Login/index";
+import { Table } from "./components/Table/index";
 import './localStorage'
 
 const App: React.FC = () => {
