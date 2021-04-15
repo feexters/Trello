@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { InputSettings } from '../../../types';
+import { InputSettings } from '../../../lib/types/types';
 import { InputForm, Button } from '../index';
 
 const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {

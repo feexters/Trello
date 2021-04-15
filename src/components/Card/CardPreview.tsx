@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardPreviewProps } from "../../types";
-import { useData } from "../Context/DataContext";
+import { CardPreviewProps } from "../../lib/types/types";
+import { useData } from "../context/index";
 import { CardWindow } from "./index";
 
 const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {

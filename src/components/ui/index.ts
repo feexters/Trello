@@ -1,5 +1,5 @@
-import { Button } from './Button/index'
-import { Input } from './Input/index'
-import { InputForm } from './InputForm/index'
+import { Button } from './button/index'
+import { Input } from './input/index'
+import { InputForm } from './inputForm/index'
 
 export { Button, Input, InputForm }

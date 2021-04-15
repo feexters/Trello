@@ -1,4 +1,4 @@
-export default class Storage {
+class Storage {
     public USER = 'user'
     public COLUMNS = 'columns'
     public CARDS = 'cards'
@@ -20,3 +20,5 @@ export default class Storage {
         localStorage.setItem(this.COMMENTS, value)
     }
 } 
+
+export default new Storage()

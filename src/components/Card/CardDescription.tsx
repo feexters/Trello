@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardData } from "../../interfaces";
+import { CardData } from "../../lib/interfaces/interfaces";
 import { Input } from "../ui/index";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {

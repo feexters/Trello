@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { CardPreview } from "../Card/index";
-import { ColumnData, CardData } from '../../interfaces'
-import { useData } from "../Context/DataContext";
+import { CardPreview } from "../card/index";
+import { ColumnData, CardData } from '../../lib/interfaces/interfaces'
+import { useData } from "../context/index";
 import { Input } from "../ui/index";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {

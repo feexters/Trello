@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {  ColumnData, CardData, CommentData } from '../../interfaces';
+import {  ColumnData, CardData, CommentData } from '../../lib/interfaces/interfaces';
 import { Storage } from '../../lib/utils'
 
 
@@ -36,8 +36,6 @@ const DataProvider: React.FC = ({ children }) => {
         setUserName(value)
         localStorage.setItem('user', userName!)
     }
-    
-    const storage = new Storage()
     
     // Render new comments
     const changeComments = (id: number, value: CommentData | null = null) => {
@@ -83,12 +81,12 @@ const DataProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         //Update storage
-        storage.setCards(JSON.stringify(cards))
+        Storage.setCards(JSON.stringify(cards))
     },[cards]);
 
     useEffect(() => {
        // Update Storage
-       storage.setUser(JSON.stringify(comments))
+       Storage.setUser(JSON.stringify(comments))
         // localStorage.setItem('comments', JSON.stringify(comments))
     },[comments]);
 

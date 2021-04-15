@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { CardDescription, CardTitle} from './index'
-import { Comment, CommentInput } from '../Comment/index'
-import { CardModalProps } from "../../types";
-import { useData } from "../Context/DataContext";
-import { CommentData } from "../../interfaces"
+import { Comment, CommentInput } from '../comment/index'
+import { CardModalProps } from "../../lib/types/types";
+import { useData } from "../context/index";
+import { CommentData } from "../../lib/interfaces/interfaces"
 
 const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
   // Get comments list

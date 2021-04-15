@@ -1,7 +1,7 @@
 import React from "react";
-import { Column }from "../Column/index";
+import { Column }from "../column/index";
 import styled from "styled-components";
-import { useData } from "../Context/DataContext";
+import { useData } from "../context/index";
 
 const Table: React.FC = () => {
   /* Columns information */

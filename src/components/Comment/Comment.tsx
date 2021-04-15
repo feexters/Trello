@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentData } from "../../interfaces";
+import { CommentData } from "../../lib/interfaces/interfaces";
 import styled from "styled-components";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {

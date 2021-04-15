@@ -1,3 +1,3 @@
-import DataProvider from './DataContext'
+import DataProvider, { useData } from './DataContext'
 
-export { DataProvider }
+export { DataProvider, useData }

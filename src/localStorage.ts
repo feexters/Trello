@@ -1,4 +1,4 @@
-import { ColumnData, CardData, CommentData } from "./interfaces";
+import { ColumnData, CardData, CommentData } from "./lib/interfaces/interfaces";
 
 /* Columns information */
 const columnsList: Array<ColumnData> = [
