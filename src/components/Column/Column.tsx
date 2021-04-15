@@ -4,36 +4,32 @@ import { CardPreview } from "../card/index";
 import { ColumnData, CardData } from '../../lib/interfaces/interfaces'
 import { useData } from "../context/index";
 import { Input } from "../ui/index";
+import { getId, getCardsById } from "../../lib/utils";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
-  // Get comments and cards list
-  const { comments, cards, user } = useData()
+  
+  const { cards, user } = useData()
 
-  /* Add new card */
   function addCard(title: string): void {
     if (title.trim()) {
       // New Card
       const newCard: CardData = {
-        id: cards.list[column.id].length,
+        id: getId(),
         title: title,
         author: user.name!,
         description: "",
-        commentsId: comments.list.length
+        columnId: column.id
       }
-      // Create new comments list
-      comments.change(comments.list.length)
-      // Create new Card
-      cards.change(column.id, newCard)
+
+      cards.add(newCard)
     }
   }
 
   return (
     <Wrapper>
-      {/* Title */}
       <Title>{column.title}</Title>
-      {/* Cards */}
-      {cards.list[column.id] &&
-        cards.list[column.id].map((card) => {
+      {/* Cards */
+        getCardsById(column.id, cards.list).map((card) => {
           return (
             <CardPreview
               card={card}

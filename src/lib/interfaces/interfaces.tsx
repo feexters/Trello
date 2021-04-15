@@ -1,19 +1,19 @@
 export interface ColumnData {
-    id: number, 
-    title: string, 
-    cardsId: number
+    id: string, 
+    title: string
 }
 
 export interface CardData {
-    id: number, 
+    id: string, 
     title: string, 
     author: string, 
     description: string, 
-    commentsId: number
+    columnId: string
 }
 
 export interface CommentData {
-    id: number, 
+    id: string, 
     value: string, 
-    author: string
+    author: string,
+    cardId: string
 }

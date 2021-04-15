@@ -5,24 +5,22 @@ import { Comment, CommentInput } from '../comment/index'
 import { CardModalProps } from "../../lib/types/types";
 import { useData } from "../context/index";
 import { CommentData } from "../../lib/interfaces/interfaces"
+import { getId, getCommentsById } from "../../lib/utils";
 
 const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
-  // Get comments list
   const { comments, user } = useData()
-  // Comments id
-  const id = card.commentsId
 
-  // Add new comment 
   const addComment = (value: string) =>  {
     if (value.trim()) {
       // Create new comment
       const newComment: CommentData = {
-        id: comments.list[id].length,
+        id: getId(),
         value: value,
-        author: user.name!
+        author: user.name!,
+        cardId: card.id
       }
-      // Add new comment in list
-      comments.change(id, newComment)
+      
+      comments.add(newComment)
     }
   }
 
@@ -61,8 +59,8 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
           <CommentList>
             <Text>Комментарии</Text>
             {/* Show comments */}
-            {comments.list[id].map((com) => (
-              <Comment comment={com} key={com.id} />
+            {getCommentsById(card.id, comments.list).map((comment) => (
+              <Comment comment={comment} key={comment.id} />
             ))}
           </CommentList>
         </Block>

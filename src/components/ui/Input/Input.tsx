@@ -6,38 +6,33 @@ import { InputForm, Button } from '../index';
 const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
   // Ref for input
   const inputRef = useRef<HTMLInputElement>(null);
-  // Open or close input
-  const [isVisibleInput, setIsVisibleInput] = useState<boolean>(true);
+
+  const [isVisibleInput, setIsVisibleInput] = useState<boolean>(false);
   
   /* Press Enter */
   const keyPress = (event: React.KeyboardEvent) => {
-    // Add new value, if user press Enter
     if (event.key === "Enter") {
       setValue(inputRef.current!.value);
-      // Close input
       setIsVisibleInput(!isVisibleInput);
     }
   };
 
   /* Input is out of focus */
   const blurHandler = () => {
-    // Add card
     setValue(inputRef.current!.value);
-    // Close input
-    setIsVisibleInput(!isVisibleInput);
+    setIsVisibleInput(prev => !prev);
   };
 
   /* Focus on the input */
   useEffect(() => {
-    if (!isVisibleInput) {
+    if (isVisibleInput) {
       inputRef.current!.focus();
     }
   }, [isVisibleInput]);
 
   return (
     <InputWrapper>
-      {/* Create cards */}
-      {isVisibleInput ? (
+      {!isVisibleInput ? (
         /* Open input area */
         <Button
           title={buttons.title}

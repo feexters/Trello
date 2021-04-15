@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { CardPreviewProps } from "../../lib/types/types";
+import { getCommentsById } from "../../lib/utils";
 import { useData } from "../context/index";
 import { CardWindow } from "./index";
 
@@ -9,7 +10,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
 
   const { comments } = useData()
 
-  const commentsCount = comments.list[card.commentsId].length
+  const commentsCount = getCommentsById(card.id, comments.list).length
 
   return (
     <>

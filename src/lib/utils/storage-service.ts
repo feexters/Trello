@@ -12,13 +12,13 @@ class StorageService {
 
     private init() {
         const columnsList: ColumnData[] = [
-            {id: 0, title: "TODO", cardsId: 0},
-            {id: 1, title: "In Progress", cardsId: 1},
-            {id: 2, title: "Testing", cardsId: 2},
-            {id: 3, title: "Done", cardsId: 3}
+            {id: '0', title: "TODO"},
+            {id: '1', title: "In Progress",},
+            {id: '2', title: "Testing"},
+            {id: '3', title: "Done"}
         ];
-        const cardsList: CardData[][] = [[], [], [], []]
-        const commentsList: CommentData[][] = []
+        const cardsList: CardData[] = []
+        const commentsList: CommentData[] = []
 
         localStorage.setItem('user', '')
         if (!localStorage.getItem('columns')) localStorage.setItem('columns', JSON.stringify(columnsList))
@@ -37,11 +37,11 @@ class StorageService {
         localStorage.setItem(this.COLUMNS, JSON.stringify(value))
     }
 
-    addCards(value: CardData[][]) {
+    addCards(value: CardData[]) {
         localStorage.setItem(this.CARDS, JSON.stringify(value))
     }
 
-    addComments(value: CommentData[][]) {
+    addComments(value: CommentData[]) {
         localStorage.setItem(this.COMMENTS, JSON.stringify(value))
     }
 
@@ -49,7 +49,7 @@ class StorageService {
         return localStorage.getItem(this.USER)
     }
 
-    getCards(): CardData[][] {
+    getCards(): CardData[] {
         return JSON.parse(localStorage.getItem(this.CARDS)!)
     }
 
@@ -57,7 +57,7 @@ class StorageService {
         return JSON.parse(localStorage.getItem(this.COLUMNS)!)
     }
 
-    getComments(): CommentData[][] {
+    getComments(): CommentData[] {
         return JSON.parse(localStorage.getItem(this.COMMENTS)!)
     }
 } 

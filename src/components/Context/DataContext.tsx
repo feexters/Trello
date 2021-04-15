@@ -12,13 +12,13 @@ const DataContext = React.createContext({
     columns: Array<ColumnData>(),
     
     cards: {
-        list: Array<Array<CardData>>(JSON.parse(localStorage.getItem('cards')!)),
-        change(id: number, value: CardData | null = null,) {}
+        list: (JSON.parse(localStorage.getItem('cards')!)) as CardData[],
+        add(value: CardData) {}
     },
 
     comments: {
-        list: Array<Array<CommentData>>(JSON.parse(localStorage.getItem('comments')!)),
-        change(id: number, value: CommentData | null = null,) {}
+        list: (JSON.parse(localStorage.getItem('comments')!)) as CommentData[],
+        add(value: CommentData) {}
     }
 })
 
@@ -27,8 +27,8 @@ export function useData() {
 }
 
 const DataProvider: React.FC = ({ children }) => {
-    const [comments, setComments] = useState<Array<Array<CommentData>>>(StorageService.getComments())
-    const [cards, setCards]       = useState<Array<Array<CardData>>>(StorageService.getCards())
+    const [comments, setComments] = useState<CommentData[]>(StorageService.getComments())
+    const [cards, setCards]       = useState<CardData[]>(StorageService.getCards())
     const [userName, setUserName] = useState<string | null>(StorageService.getUser())
     const columns: Array<ColumnData> = JSON.parse(localStorage.getItem('columns')!)
 
@@ -37,46 +37,12 @@ const DataProvider: React.FC = ({ children }) => {
         StorageService.addUser(value!)
     }
     
-    // Render new comments
-    const changeComments = (id: number, value: CommentData | null = null) => {
-        setComments(prev => {
-            // If it's a new card
-            const cardComments = prev[id] ? prev[id] : Array<CommentData>()
-
-            // New Card
-            if (value) {
-                return prev.map((elem, elemId) => {
-                    // Update cards list
-                    if (elemId === id) return [...elem, value]
-                    else return elem
-                })
-            }
-
-            return [...prev, [...cardComments]]
-
-            
-        })
+    const addComment = (value: CommentData) => {
+        setComments(prev => [...prev, value])
     }
 
-    const changeCards = (id: number, value: CardData | null = null) => {
-        setCards (prev => {
-
-            // If it's a new card
-            const tableCards = prev[id] ? prev[id] : Array<CardData>()
-
-            // New Card
-            if (value) {
-                return prev.map((elem, elemId) => {
-                    // Update cards list
-                    if (elemId === id) return [...elem, value]
-                    else return elem
-                })
-            }
-
-            // Create cards list for new Column
-            return [...prev, [...tableCards]]
-
-        }) 
+    const addCard = (value: CardData) => {
+        setCards (prev =>  [...prev, value]) 
     }
 
     useEffect(() => {
@@ -99,12 +65,12 @@ const DataProvider: React.FC = ({ children }) => {
 
         cards: {
             list: cards,
-            change: changeCards
+            add: addCard
         },
 
         comments: {
             list: comments, 
-            change: changeComments
+            add: addComment
         }
     }
 
