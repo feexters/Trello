@@ -1,7 +1,7 @@
 import React from "react";
-import { DataProvider } from "./components/context/index";
-import { Login } from "./components/login/index";
-import { Table } from "./components/table/index";
+import { DataProvider } from "./components/Context/index";
+import { Login } from "./components/Login/index";
+import { Table } from "./components/Table/index";
 
 const App: React.FC = () => {
   return (

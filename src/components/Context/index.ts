@@ -1,3 +1,3 @@
-import DataProvider, { useData } from './DataContext'
+import DataProvider, { useData } from '../Context/DataContext'
 
 export { DataProvider, useData }

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { useData } from '../context/index';
+import { useData } from '../Context/index';
 import { InputForm, Button } from '../ui/index';
 
 const Login: React.FC  = () => {

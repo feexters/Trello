@@ -1,4 +1,4 @@
-import Comment from './Comment'
-import CommentInput from './CommentInput'
+import Comment from '../Comment/Comment'
+import CommentInput from '../Comment/CommentInput'
 
 export { Comment, CommentInput }

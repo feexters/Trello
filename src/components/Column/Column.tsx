@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { CardPreview } from "../card/index";
+import { CardPreview } from "../Сard/index";
 import { ColumnData, CardData } from '../../lib/interfaces/interfaces'
-import { useData } from "../context/index";
+import { useData } from "../Context/index";
 import { Input } from "../ui/index";
 import { getId, getCardsById } from "../../lib/utils";
 
