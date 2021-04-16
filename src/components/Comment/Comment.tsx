@@ -1,12 +1,20 @@
 import React from "react";
 import { CommentData } from "../../lib/interfaces/interfaces";
 import styled from "styled-components";
+import { useData } from "../Context";
+import { ChangePanel } from "../ChangePanel";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
+
+  const { user, comments } = useData()
+
   return (
     <Wrapper>
       <Author>{comment.author}:</Author>
       <Value>{comment.value}</Value>
+      {comment.author === user.name && (
+        <ChangePanel onDelete={() => comments.delete(comment.id)}></ChangePanel>
+      )}
     </Wrapper>
   );
 };

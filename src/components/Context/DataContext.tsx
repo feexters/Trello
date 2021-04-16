@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {  ColumnData, CardData, CommentData } from '../../lib/interfaces/interfaces';
-import { deleteElemById, StorageService } from '../../lib/utils'
+import { deleteElemById, getCommentsById, StorageService } from '../../lib/utils'
 
 
 const DataContext = React.createContext({
@@ -19,7 +19,8 @@ const DataContext = React.createContext({
 
     comments: {
         list: (JSON.parse(localStorage.getItem('comments')!)) as CommentData[],
-        add(value: CommentData) {}
+        add(value: CommentData) {},
+        delete(id: string) {}
     }
 })
 
@@ -47,7 +48,15 @@ const DataProvider: React.FC = ({ children }) => {
     }
 
     const deleteCard = (id: string) => {
-        setCards(prev => deleteElemById(id, prev))
+        setCards((prev) => {
+            // Delete comments
+            getCommentsById(id, comments).map(elem => deleteComment(elem.id))
+            return deleteElemById(id, prev);
+        });
+    }
+
+    const deleteComment = (id: string) => {
+        setComments(prev => deleteElemById(id, prev))
     }
 
     useEffect(() => {
@@ -76,7 +85,8 @@ const DataProvider: React.FC = ({ children }) => {
 
         comments: {
             list: comments, 
-            add: addComment
+            add: addComment,
+            delete: deleteComment
         }
     }
 
