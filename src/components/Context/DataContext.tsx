@@ -15,7 +15,8 @@ const DataContext = React.createContext({
         list: (JSON.parse(localStorage.getItem('cards')!)) as CardData[],
         add(value: CardData) {},
         delete(id: string) {},
-        changeTitle(id: string, value: string) {}
+        changeTitle(id: string, value: string) {},
+        changeDescription(id: string, value: string) {}
     },
 
     comments: {
@@ -58,6 +59,16 @@ const DataProvider: React.FC = ({ children }) => {
         }))
     }
 
+    const changeCardDescription = (id: string, value: string) => {
+        setCards(prev => prev.map(elem => {
+            if (elem.id === id) {
+                elem.description = value
+            } 
+
+            return elem 
+        }))
+    }
+
     const deleteCard = (id: string) => {
         setCards((prev) => {
             // Delete comments
@@ -92,7 +103,8 @@ const DataProvider: React.FC = ({ children }) => {
             list: cards,
             add: addCard,
             delete: deleteCard,
-            changeTitle: changeCardTitle
+            changeTitle: changeCardTitle,
+            changeDescription: changeCardDescription
         },
 
         comments: {

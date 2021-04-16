@@ -1,26 +1,55 @@
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { CardData } from "../../lib/interfaces/interfaces";
-import { Input } from "../ui/index";
+import { useData } from "../Context";
+import { Button, InputChange } from "../ui/index";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
-  
+  const [isChange, setIsChange] = useState(false)
+  const { cards, user } = useData()
+  const inputRef = useRef<HTMLInputElement>(null)
+
   // Update description of card
-  const addDescription = (value: string) => {
-    card.description = value
+  const setDescription = (value: string): void => {
+    if (value.trim()) {
+      cards.changeDescription(card.id, value)
+      setIsChange(!isChange)
+    }
+    console.log(value)
   }
+
+    /* Focus on the input */
+    useEffect(() => {
+      if (isChange) {
+        inputRef.current!.focus();
+        inputRef.current!.value = card.description
+      }
+    }, [isChange, card.description]);
 
   return (
     <Wrapper>
-      <Input
-        setValue={(value) => addDescription(value)}
-        placeholder="Введите описание"
-        buttons={{ title:"Изменить" }}
-      />
+      {!isChange && <Text>{card.description}</Text>}
+      {!isChange && card.author === user.name && (
+          <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
+      )}
+      {isChange && (
+        <InputChange
+          placeholder="Описание"
+          setValue={setDescription}
+          inputRef={inputRef}
+          value={card.description}
+        />
+      )}
     </Wrapper>
   );
 };
 
 export default CardDescription;
+
+const Text = styled.div`
+  padding: 5px;
+  font-size: 1.3rem;
+`
 
 const Wrapper = styled.div`
   display: flex;
