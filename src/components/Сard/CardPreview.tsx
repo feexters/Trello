@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { CardPreviewProps } from "../../lib/types/types";
 import { getCommentsById } from "../../lib/utils";
+import { ChangePanel } from "../ChangePanel";
 import { useData } from "../Context/index";
 import { CardWindow } from "./index";
 
 const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 
-  const { comments } = useData()
+  const { comments, user, cards } = useData()
 
   const commentsCount = getCommentsById(card.id, comments.list).length
 
@@ -23,6 +24,8 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
             {commentsCount}
           </Comments>
         )}
+
+        {card.author === user.name && <ChangePanel onDelete={() =>{cards.delete(card.id)}}></ChangePanel>}
       </Wrapper>
 
       {isVisibleModal && (
@@ -34,8 +37,6 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
           }}
         />
       )}
-
-      
     </>
   );
 };
@@ -50,6 +51,10 @@ const Wrapper = styled.div`
   border-radius: 5px;
   align-self: center;
   cursor: pointer;
+
+  & > * {
+    margin: 5px 0;
+  }
 `;
 const CardTitle = styled.span`
   display: block;
@@ -64,4 +69,3 @@ const Comments = styled.div`
     margin-right: 5px;
   }
 `;
-
