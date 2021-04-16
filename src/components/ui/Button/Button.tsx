@@ -5,12 +5,13 @@ type ButtonProps = {
     title: string, 
     clickHandler(): void,
     success?: boolean
+    btnRef?: React.RefObject<HTMLButtonElement>
 }
 
-const Button: React.FC<ButtonProps> = ({ title, clickHandler, success=  false }) => {
+const Button: React.FC<ButtonProps> = ({ title, clickHandler, success = false, btnRef }) => {
     
     return (
-       <StyledButton onClick={clickHandler} success={success}>{title}</StyledButton> 
+       <StyledButton onClick={clickHandler} success={success} ref={btnRef}>{title}</StyledButton> 
     );
 }
 

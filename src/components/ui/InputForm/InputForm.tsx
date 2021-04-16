@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface InputProps {
     placeholder: string,
     keyPress(event: React.KeyboardEvent): void,
-    blurHandler?(): void
+    blurHandler?(event: React.FocusEvent<HTMLInputElement>): void
     inputRef: React.RefObject<HTMLInputElement>,
     changeHandler?(): void
 }

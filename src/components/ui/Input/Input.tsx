@@ -4,11 +4,21 @@ import { InputSettings } from '../../../lib/types/types';
 import { InputForm, Button } from '../index';
 
 const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
-  // Ref for input
   const inputRef = useRef<HTMLInputElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
 
   const [isVisibleInput, setIsVisibleInput] = useState<boolean>(false);
   
+  const onClose = (isSave: boolean) => {
+    if(isSave) {
+      setValue(inputRef.current!.value);
+      setIsVisibleInput(!isVisibleInput);
+    } else {
+      inputRef.current!.value = ''
+      setIsVisibleInput(!isVisibleInput)
+    }
+  }
   /* Press Enter */
   const keyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -18,9 +28,12 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
   };
 
   /* Input is out of focus */
-  const blurHandler = () => {
-    setValue(inputRef.current!.value);
-    setIsVisibleInput(prev => !prev);
+  const blurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (closeRef.current! === event.relatedTarget) {
+      onClose(false)
+    } else {
+      onClose(true)
+    }
   };
 
   /* Focus on the input */
@@ -55,7 +68,8 @@ const Input: React.FC<InputSettings> = ({ setValue, placeholder, buttons }) => {
             ></Button>
             <Button
               title={"X"}
-              clickHandler={() => setIsVisibleInput(!isVisibleInput)}
+              btnRef={closeRef}
+              clickHandler={() => {}}
             ></Button>
           </ButtonWrapper>
         </>
