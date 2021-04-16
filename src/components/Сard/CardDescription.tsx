@@ -37,7 +37,6 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
           placeholder="Описание"
           setValue={setDescription}
           inputRef={inputRef}
-          value={card.description}
         />
       )}
     </Wrapper>

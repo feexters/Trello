@@ -39,7 +39,6 @@ const CardTitle: React.FC<CardTitleProps> = ({ card, isChange, setIsChange }) =>
           placeholder="Имя карточки"
           setValue={setTitle}
           inputRef={inputRef}
-          value={card.title}
         />
       )}
     </>

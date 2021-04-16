@@ -6,7 +6,6 @@ interface InputChangeProps {
     placeholder: string, 
     setValue(value: string): void,
     inputRef: React.RefObject<HTMLInputElement>,
-    value: string
 }
 
 const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRef}) => {

@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ChangePanelProps {
-    onDelete(): void
+    onDelete(): void,
+    onChange?(): void
 }
 
-const ChangePanel: React.FC<ChangePanelProps> = ({onDelete}) => {
+const ChangePanel: React.FC<ChangePanelProps> = ({onDelete, onChange}) => {
     return (
         <Wrapper>
-            <StyledButton>Изменить</StyledButton>
+            <StyledButton onClick={onChange}>Изменить</StyledButton>
             <StyledButton onClick={onDelete}>Удалить</StyledButton>
         </Wrapper>
     );
