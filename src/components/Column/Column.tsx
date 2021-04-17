@@ -5,6 +5,7 @@ import { ColumnData, CardData } from '../../lib/interfaces'
 import { useData } from "../Context";
 import { InputAdd } from "../ui";
 import { getId, getCardsById } from "../../lib/utils";
+import ColumnTitle from "./ColumnTitle";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   
@@ -27,7 +28,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
 
   return (
     <Wrapper>
-      <Title>{column.title}</Title>
+      <ColumnTitle column={column} />
       { getCardsById(column.id, cards.list).map((card) => {
           return (
             <CardPreview
@@ -67,9 +68,4 @@ const Wrapper = styled.div`
   & > * {
     margin-bottom: 5px;
   }
-`;
-
-const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: bold;
 `;

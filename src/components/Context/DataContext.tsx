@@ -9,10 +9,13 @@ const DataContext = React.createContext({
         change: ((value: string | null) => {})
     },
 
-    columns: Array<ColumnData>(),
+    columns: {
+        list: (StorageService.getColumns()) as ColumnData[],
+        changeTitle(id: string, value: string) {}
+    },
     
     cards: {
-        list: (JSON.parse(localStorage.getItem('cards')!)) as CardData[],
+        list: (StorageService.getCards()) as CardData[],
         add(value: CardData) {},
         delete(id: string) {},
         changeTitle(id: string, value: string) {},
@@ -20,7 +23,7 @@ const DataContext = React.createContext({
     },
 
     comments: {
-        list: (JSON.parse(localStorage.getItem('comments')!)) as CommentData[],
+        list: (StorageService.getComments()) as CommentData[],
         add(value: CommentData) {},
         delete(id: string) {},
         change(id: string, value: string) {}
@@ -35,7 +38,7 @@ const DataProvider: React.FC = ({ children }) => {
     const [comments, setComments] = useState<CommentData[]>(StorageService.getComments())
     const [cards, setCards]       = useState<CardData[]>(StorageService.getCards())
     const [userName, setUserName] = useState<string | null>(StorageService.getUser())
-    const columns: Array<ColumnData> = JSON.parse(localStorage.getItem('columns')!)
+    const [columns, setColumns] = useState<ColumnData[]>(StorageService.getColumns())
 
     const changeUserName = (value: string | null) => {
         setUserName(value)
@@ -80,6 +83,16 @@ const DataProvider: React.FC = ({ children }) => {
         }))
     }
 
+    const changeColumnTitle = (id: string, value: string) => {
+        setColumns(prev => prev.map(elem => {
+            if (elem.id === id) {
+                elem.title = value
+            } 
+
+            return elem 
+        }))
+    }
+
     const deleteCard = (id: string) => {
         setCards((prev) => {
             // Delete comments
@@ -108,7 +121,10 @@ const DataProvider: React.FC = ({ children }) => {
             change: changeUserName
         },
 
-        columns: columns,
+        columns: {
+            list: columns,
+            changeTitle: changeColumnTitle
+        },
 
         cards: {
             list: cards,

@@ -22,9 +22,10 @@ const StyledButton = styled.button<{success: boolean}>`
     border-radius: 5px;
     padding: 5px;
     font-size: 1.2rem;
+    margin-top: 5px;
 
     color: ${({ success }) => success ? 'white' : 'black'};
-    background-color: ${({ success }) => success ? 'rgb(97, 189, 79)' : 'rgb(230, 230, 230)'};
+    background-color: ${({ success }) => success ? 'rgb(97, 189, 79)' : 'rgb(210, 210, 210)'};
     cursor: pointer;
 
     &:hover {

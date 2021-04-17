@@ -9,7 +9,7 @@ const Table: React.FC = () => {
   return (
       <Wrapper>
         <ColumnsList>
-          {columns.map((col) => (
+          {columns.list.map((col) => (
             <Column column={col} key={col.id} />
           ))}
         </ColumnsList>
