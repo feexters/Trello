@@ -1,4 +1,4 @@
-import { CardData, CommentData } from "../interfaces/interfaces";
+import { CardData, CommentData } from "../interfaces";
 
 function deleteElemById(id: string, list: CommentData[]): CommentData[] 
 function deleteElemById(id: string, list: CardData[]): CardData[] 

@@ -1,4 +1,4 @@
-import { CardData, CommentData } from "../interfaces/interfaces";
+import { CardData, CommentData } from "../interfaces";
 
 function getCommentsById(id: string, list: CommentData[]): CommentData[] {
     return list.filter(elem => elem.cardId === id)

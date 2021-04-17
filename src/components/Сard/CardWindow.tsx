@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { CardDescription, CardTitle} from './index'
 import { Comment, CommentInput } from '../Comment/index'
-import { CardModalProps } from "../../lib/types/types";
 import { useData } from "../Context/index";
-import { CommentData } from "../../lib/interfaces/interfaces"
+import { CardData, ColumnData, CommentData } from "../../lib/interfaces"
 import { getId, getCommentsById } from "../../lib/utils";
-import { Button } from "../ui";
+
+interface CardModalProps {
+    card: CardData,
+    column: ColumnData,
+    close(): void
+}
 
 const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
   const { comments, user } = useData()
-  const [isChangeTitle, setIsChangeTitle] = useState(false)
 
   const addComment = (value: string) =>  {
     if (value.trim()) {
@@ -37,20 +40,11 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
       <Card>
         <CardHeader>
           <div>
-            <CardTitle
-              card={card}
-              isChange={isChangeTitle}
-              setIsChange={() => setIsChangeTitle(!isChangeTitle)}
-            />
-            {!isChangeTitle && card.author === user.name && (
-              <Button
-                title="Изменить"
-                clickHandler={() => setIsChangeTitle(!isChangeTitle)}
-              />
-            )}
-            <Text>
-              в колонке <ColumnTitle>{column.title}</ColumnTitle>
+            <CardTitle card={card} />
+            <Text> в колонке 
+              <ColumnTitle>{column.title}</ColumnTitle>
             </Text>
+            <Author>Создал: {card.author}</Author>
           </div>
 
           <Close onClick={close}>X</Close>
@@ -105,6 +99,12 @@ const Card = styled.div`
   position: relative;
   top: -10%;
 `;
+
+const Author = styled.div`
+  font-size: 1.3rem;
+  margin-top: 10px;
+  text-decoration: underline;
+`
 
 const Block = styled.div`
   margin-bottom: 20px;

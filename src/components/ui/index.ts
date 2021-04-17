@@ -1,6 +1,6 @@
 import { Button } from './Button/index'
+import { InputAdd } from './InputAdd/index'
 import { Input } from './Input/index'
-import { InputForm } from './InputForm/index'
 import { InputChange } from './InputChange/index'
 
-export { Button, Input, InputForm, InputChange }
+export { Button, InputAdd, Input, InputChange }

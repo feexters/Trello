@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {  ColumnData, CardData, CommentData } from '../../lib/interfaces/interfaces';
+import {  ColumnData, CardData, CommentData } from '../../lib/interfaces';
 import { deleteElemById, getCommentsById, StorageService } from '../../lib/utils'
 
 

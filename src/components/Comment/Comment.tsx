@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CommentData } from "../../lib/interfaces/interfaces";
+import { CommentData } from "../../lib/interfaces";
 import styled from "styled-components";
 import { useData } from "../Context";
 import { ChangePanel } from "../ChangePanel";

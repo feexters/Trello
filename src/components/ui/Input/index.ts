@@ -1,3 +1,2 @@
-import Input from '../Input/Input'
-
+import Input from './Input'
 export { Input }

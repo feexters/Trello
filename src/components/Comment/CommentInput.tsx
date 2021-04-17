@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Input } from "../ui/index";
+import { InputAdd } from "../ui/index";
 
 const CommentInput: React.FC<{ addComment(value: string): void }> = ({  addComment }) => {
   return (
     <Wrapper>
-      <Input
+      <InputAdd
         setValue={(value: string) => addComment(value)}
         placeholder="Комментарий"
         buttons={{title: "Добавить комментрарий"}}

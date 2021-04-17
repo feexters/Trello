@@ -9,7 +9,7 @@ interface ChangePanelProps {
 const ChangePanel: React.FC<ChangePanelProps> = ({onDelete, onChange}) => {
     return (
         <Wrapper>
-            <StyledButton onClick={onChange}>Изменить</StyledButton>
+            {onChange && <StyledButton onClick={onChange}>Изменить</StyledButton>}
             <StyledButton onClick={onDelete}>Удалить</StyledButton>
         </Wrapper>
     );

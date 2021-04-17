@@ -1,4 +1,4 @@
-import { CardData, ColumnData, CommentData } from "../interfaces/interfaces"
+import { CardData, ColumnData, CommentData } from "../interfaces"
 
 class StorageService {
     public USER = 'user'

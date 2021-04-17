@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { InputSettings } from '../../lib/types';
 import { useData } from '../Context/index';
-import { InputForm, Button } from '../ui/index';
+import { Input, Button } from '../ui';
 
 const Login: React.FC  = () => {
     // Ref for input 
@@ -35,6 +36,13 @@ const Login: React.FC  = () => {
         }
     }
 
+    const inputSettings: InputSettings = {
+        placeholder: "Имя пользователя",
+        onKeyPress: keyPress,
+        onChange: inputToggle,
+        ref: inputRef 
+    }
+
     return (
         <>
         {!user.name && 
@@ -42,12 +50,8 @@ const Login: React.FC  = () => {
                 <LoginWindow>
                     <Title>Введите ваше имя:</Title>
                     <InputWrap> 
-                        <InputForm 
-                            placeholder="Имя пользователя"
-                            keyPress={keyPress}
-                            inputRef={inputRef}
-                            changeHandler={inputToggle}
-                        ></InputForm>
+                        <Input settings={inputSettings}
+                        ></Input>
                         {isVisibleButton &&
                             <Button title="Войти" clickHandler={setUserName} success/>
                         }

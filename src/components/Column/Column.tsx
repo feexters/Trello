@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { CardPreview } from "../Сard/index";
-import { ColumnData, CardData } from '../../lib/interfaces/interfaces'
-import { useData } from "../Context/index";
-import { Input } from "../ui/index";
+import { CardPreview } from "../Сard";
+import { ColumnData, CardData } from '../../lib/interfaces'
+import { useData } from "../Context";
+import { InputAdd } from "../ui";
 import { getId, getCardsById } from "../../lib/utils";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
@@ -39,11 +39,11 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
         })}
 
       {/* Create new card */}
-      <Input
+      <InputAdd
         setValue={(value: string) => addCard(value)}
         placeholder="Введите название карточки"
         buttons={{ title: "+ Добавить еще одну карточку" }}
-      ></Input>
+      ></InputAdd>
 
     </Wrapper>
   );

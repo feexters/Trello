@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '..';
+import { InputSettings } from '../../../lib/types';
+import { Input } from '../index'
 
 interface InputChangeProps {
     placeholder: string, 
@@ -24,15 +26,17 @@ const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRe
     const clickHandler = () => {
         setValue(inputRef.current!.value)
     }
+
+    const inputSettings: InputSettings = {
+      placeholder: placeholder,
+      onKeyPress: keyPress,
+      onBlur: blurHandler,
+      ref: inputRef
+    }
       
     return (
       <Wrapper>
-        <StyledInput
-          placeholder={placeholder}
-          onKeyPress={keyPress}
-          onBlur={blurHandler}
-          ref={inputRef}
-        />
+        <Input settings={inputSettings} />
         <Button title="Сохранить" clickHandler={clickHandler} success/>
       </Wrapper>
     );
@@ -41,18 +45,4 @@ const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRe
 export default InputChange;
 
 const Wrapper = styled.div`
-`
-
-const StyledInput = styled.input`
-    width: 100%;
-    padding: 5px 10px;
-    background-color: white;
-    border-radius: 5px;
-    align-self: center;
-    border: 1px solid black;
-    font-size: 1.5rem;
-
-    &:focus {
-        outline: none
-    }
 `

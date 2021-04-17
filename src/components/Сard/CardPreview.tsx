@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardPreviewProps } from "../../lib/types/types";
+import { CardData, ColumnData } from "../../lib/interfaces";
 import { getCommentsById } from "../../lib/utils";
 import { ChangePanel } from "../ChangePanel";
 import { useData } from "../Context/index";
 import { CardWindow } from "./index";
+
+interface CardPreviewProps {
+    card: CardData,
+    column: ColumnData
+}
 
 const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);

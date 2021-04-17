@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { CardData } from "../../lib/interfaces/interfaces";
+import { CardData } from "../../lib/interfaces";
 import { useData } from "../Context";
 import { Button, InputChange } from "../ui/index";
 
@@ -28,7 +28,7 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
 
   return (
     <Wrapper>
-      {!isChange && <Text>{card.description}</Text>}
+      {!isChange && card.description && <Text>{card.description}</Text>}
       {!isChange && card.author === user.name && (
           <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
       )}
