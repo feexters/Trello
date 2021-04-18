@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { CardDescription, CardTitle} from './index'
 import { Comment, CommentInput } from '../Comment/index'
@@ -14,6 +14,7 @@ interface CardModalProps {
 
 const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
   const { comments, user } = useData()
+  const refWindow = useRef<HTMLDivElement>(null)
 
   const addComment = (value: string) =>  {
     if (value.trim()) {
@@ -28,20 +29,39 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
     }
   }
 
-  // Close modal window
+  // Close window
   const onClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if ((event.target as Element).classList.contains("overlay")) {
       close()
     }
   }
 
+  /* Close window by Escape */
+  const onKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Escape") {
+        close()
+    }
+  };
+
+  useEffect(() => {
+    refWindow.current!.focus()
+  })
+
   return (
-    <Wrapper className={"overlay"} onClick={onClose}>
+    <Wrapper
+      className={"overlay"}
+      onClick={onClose}
+      onKeyDown={onKeyPress}
+      tabIndex={-1}
+      ref={refWindow}
+    >
       <Card>
         <CardHeader>
           <div>
             <CardTitle card={card} />
-            <Text> в колонке 
+            <Text>
+              {" "}
+              в колонке
               <ColumnTitle>{column.title}</ColumnTitle>
             </Text>
             <Author>Создал: {card.author}</Author>
@@ -86,6 +106,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:focus {
+        outline: none
+  }
 `;
 
 const Card = styled.div`
