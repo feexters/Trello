@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CommentData } from "../../lib/interfaces";
 import styled from "styled-components";
 import { useData } from "../Context";
@@ -20,14 +20,6 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
     }
   }
 
-  /* Focus on the input */
-  useEffect(() => {
-    if (isChange) {
-      inputRef.current!.focus();
-      inputRef.current!.value = comment.value 
-    }
-  }, [isChange, comment.value]);
-
   return (
     <Wrapper>
       {!isChange && (
@@ -47,6 +39,7 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
           inputRef={inputRef}
           placeholder="Комментарий"
           setValue={changeComment}
+          value={comment.value}
         />
       )}
     </Wrapper>

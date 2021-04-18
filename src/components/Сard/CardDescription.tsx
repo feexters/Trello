@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { CardData } from "../../lib/interfaces";
 import { useData } from "../Context";
@@ -18,13 +18,13 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
     console.log(value)
   }
 
-    /* Focus on the input */
-    useEffect(() => {
-      if (isChange) {
-        inputRef.current!.focus();
-        inputRef.current!.value = card.description
-      }
-    }, [isChange, card.description]);
+    // /* Focus on the input */
+    // useEffect(() => {
+    //   if (isChange) {
+    //     inputRef.current!.focus();
+    //     inputRef.current!.value = card.description
+    //   }
+    // }, [isChange, card.description]);
 
   return (
     <Wrapper>
@@ -37,6 +37,7 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
           placeholder="Описание"
           setValue={setDescription}
           inputRef={inputRef}
+          value={card.description}
         />
       )}
     </Wrapper>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button, InputChange } from "../ui";
 import { useData } from "../Context";
 import { CardData } from "../../lib/interfaces";
@@ -18,14 +18,6 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
     }
   }
 
-   /* Focus on the input */
-   useEffect(() => {
-    if (isChange) {
-      inputRef.current!.focus();
-      inputRef.current!.value = card.title 
-    }
-  }, [isChange, card.title]);
-
   return (
     <>
       {!isChange ? (
@@ -35,6 +27,7 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
           placeholder="Имя карточки"
           setValue={setTitle}
           inputRef={inputRef}
+          value = {card.title}
         />
       )}
 

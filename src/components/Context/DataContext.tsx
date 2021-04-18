@@ -106,6 +106,10 @@ const DataProvider: React.FC = ({ children }) => {
     }
 
     useEffect(() => {
+        StorageService.addColumns(columns)
+    },[columns]);
+
+    useEffect(() => {
         StorageService.addCards(cards)
     },[cards]);
 

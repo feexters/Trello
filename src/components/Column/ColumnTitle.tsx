@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ColumnData } from '../../lib/interfaces';
 import { useData } from '../Context';
@@ -17,14 +17,6 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
     }
   };
 
-  /* Focus on the input */
-  useEffect(() => {
-    if (isChange) {
-      inputRef.current!.focus();
-      inputRef.current!.value = column.title;
-    }
-  }, [isChange, column.title]);
-
   return (
     <>
       {!isChange ? (
@@ -34,6 +26,7 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
           placeholder="Имя карточки"
           setValue={setTitle}
           inputRef={inputRef}
+          value={column.title}
         />
       )}
       {!isChange && (

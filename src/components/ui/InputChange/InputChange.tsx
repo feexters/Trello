@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '..';
 import { InputSettings } from '../../../lib/types';
@@ -8,9 +8,10 @@ interface InputChangeProps {
     placeholder: string, 
     setValue(value: string): void,
     inputRef: React.RefObject<HTMLInputElement>,
+    value: string
 }
 
-const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRef}) => {
+const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRef, value}) => {
     /* Press Enter */
     const keyPress = (event: React.KeyboardEvent) => {
         if (event.key === "Enter") {
@@ -33,6 +34,11 @@ const InputChange: React.FC<InputChangeProps> = ({placeholder, setValue, inputRe
       onBlur: blurHandler,
       ref: inputRef
     }
+
+    useEffect(() => {
+      inputSettings.ref.current!.focus()
+      inputSettings.ref.current!.value = value
+    })
       
     return (
       <Wrapper>
