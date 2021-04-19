@@ -4,7 +4,7 @@ import { CardPreview } from "components/Сard";
 import { ColumnData, CardData } from 'lib/interfaces'
 import { useData } from "components/Context";
 import { Button, Input } from "components/ui";
-import { getId, getCardsById } from "lib/utils";
+import { getId } from "lib/utils";
 import ColumnTitle from "./components/ColumnTitle/ColumnTitle";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
@@ -47,7 +47,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   return (
     <Wrapper>
       <ColumnTitle column={column} />
-      {getCardsById(column.id, cards.list).map((card) => {
+      {cards.list.filter(elem => elem.columnId === column.id).map((card) => {
         return (
           <CardPreview card={card} column={column} key={card.id}></CardPreview>
         );

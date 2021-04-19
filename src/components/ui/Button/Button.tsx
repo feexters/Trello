@@ -29,7 +29,6 @@ const StyledButton = styled.button<{isSuccessTheme: boolean}>`
     cursor: pointer;
 
     &:hover {
-        /* background-color: rgb(200, 200, 200); */
         background-color: ${({ isSuccessTheme }) => isSuccessTheme ? 'rgb(47, 177, 43)' : 'rgb(200, 200, 200)'};
     }
 

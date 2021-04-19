@@ -2,7 +2,7 @@ import { Comment } from "components/Comment";
 import { useData } from "components/Context";
 import { Button, TextArea } from "components/ui";
 import { CardData, CommentData } from "lib/interfaces";
-import { getCommentsById, getId } from "lib/utils";
+import { getId } from "lib/utils";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -51,17 +51,19 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
           value={inputValue}
         />
       ) : (
-        <Button
-          clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-        >Оставить комментарий</Button>
+        <Button clickHandler={() => setIsVisibleInput(!isVisibleInput)}>
+          Оставить комментарий
+        </Button>
       )}
 
       <CommentList>
         <Text>Комментарии</Text>
         {/* Show comments */}
-        {getCommentsById(card.id, comments.list).map((comment) => (
-          <Comment comment={comment} key={comment.id} />
-        ))}
+        {comments.list
+          .filter((elem) => elem.cardId === card.id)
+          .map((comment) => (
+            <Comment comment={comment} key={comment.id} />
+          ))}
       </CommentList>
     </div>
   );

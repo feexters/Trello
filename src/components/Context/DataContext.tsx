@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {  ColumnData, CardData, CommentData } from 'lib/interfaces';
-import { deleteElemById, getCommentsById, StorageService } from 'lib/utils'
+import { StorageService } from 'lib/utils'
 
 
 const DataContext = React.createContext({
@@ -95,14 +95,14 @@ const DataProvider: React.FC = ({ children }) => {
 
     const deleteCard = (id: string) => {
         setCards((prev) => {
-            // Delete comments
-            getCommentsById(id, comments).map(elem => deleteComment(elem.id))
-            return deleteElemById(id, prev);
+            const cardComments = comments.filter(elem => elem.cardId === id)
+            cardComments.map(elem => deleteComment(elem.id))
+            return prev.filter(elem => elem.id !== id)
         });
     }
 
     const deleteComment = (id: string) => {
-        setComments(prev => deleteElemById(id, prev))
+        setComments(prev => prev.filter(elem => elem.id !== id))
     }
 
     useEffect(() => {
