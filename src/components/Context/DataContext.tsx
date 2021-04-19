@@ -5,17 +5,17 @@ import { StorageService } from 'lib/utils'
 
 const DataContext = React.createContext({
     user: {
-        name: localStorage.getItem('user'),
+        name: '' as string | null,
         change: ((value: string | null) => {})
     },
 
     columns: {
-        list: (StorageService.getColumns()) as ColumnData[],
+        list: [] as ColumnData[],
         changeTitle(id: string, value: string) {}
     },
     
     cards: {
-        list: (StorageService.getCards()) as CardData[],
+        list: [] as CardData[],
         add(value: CardData) {},
         delete(id: string) {},
         changeTitle(id: string, value: string) {},
@@ -23,7 +23,7 @@ const DataContext = React.createContext({
     },
 
     comments: {
-        list: (StorageService.getComments()) as CommentData[],
+        list: [] as CommentData[],
         add(value: CommentData) {},
         delete(id: string) {},
         change(id: string, value: string) {}
@@ -35,9 +35,9 @@ export function useData() {
 }
 
 const DataProvider: React.FC = ({ children }) => {
-    const [comments, setComments] = useState<CommentData[]>(StorageService.getComments())
-    const [cards, setCards]       = useState<CardData[]>(StorageService.getCards())
-    const [userName, setUserName] = useState<string | null>(StorageService.getUser())
+    const [comments, setComments] = useState<CommentData[]>(StorageService.getComments() || [])
+    const [cards, setCards]       = useState<CardData[]>(StorageService.getCards() || [])
+    const [userName, setUserName] = useState<string | null>(StorageService.getUser() || '')
     const [columns, setColumns] = useState<ColumnData[]>(StorageService.getColumns())
 
     const changeUserName = (value: string | null) => {

@@ -17,16 +17,8 @@ class StorageService {
             {id: '2', title: "Testing"},
             {id: '3', title: "Done"}
         ];
-        const cardsList: CardData[] = []
-        const commentsList: CommentData[] = []
-
-        localStorage.setItem('user', '')
+        
         if (!localStorage.getItem('columns')) localStorage.setItem('columns', JSON.stringify(columnsList))
-        if (!localStorage.getItem('cards')) localStorage.setItem('cards', JSON.stringify(cardsList))
-        if (!localStorage.getItem('comments')) localStorage.setItem('comments', JSON.stringify(commentsList))
-        // localStorage.setItem('columns', JSON.stringify(columnsList))
-        // localStorage.setItem('cards', JSON.stringify(cardsList))
-        // localStorage.setItem('comments', JSON.stringify(commentsList))
     }
 
     addUser(value: string) {
