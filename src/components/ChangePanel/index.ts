@@ -1,3 +1,1 @@
-import ChangePanel from './ChangePanel'
-
-export { ChangePanel }
+export { default as ChangePanel } from './ChangePanel'

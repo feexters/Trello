@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { CardDescription, CardTitle} from './components'
-import { Comment, CommentInput } from 'components/Comment'
-import { useData } from "components/Context";
-import { CardData, ColumnData, CommentData } from "lib/interfaces"
-import { getId, getCommentsById } from "lib/utils";
+import { CardComments, CardDescription, CardTitle} from './components'
+import { CardData, ColumnData } from "lib/interfaces"
 
 interface CardModalProps {
     card: CardData,
@@ -13,21 +10,7 @@ interface CardModalProps {
 }
 
 const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
-  const { comments, user } = useData()
   const refWindow = useRef<HTMLDivElement>(null)
-
-  const addComment = (value: string) =>  {
-    if (value.trim()) {
-      const newComment: CommentData = {
-        id: getId(),
-        value: value,
-        author: user.name!,
-        cardId: card.id
-      }
-      
-      comments.add(newComment)
-    }
-  }
 
   const onClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if ((event.target as Element).classList.contains("overlay")) {
@@ -75,15 +58,7 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
 
         <Block>
           <BlockTitle>Действия</BlockTitle>
-          <CommentInput addComment={addComment} />
-
-          <CommentList>
-            <Text>Комментарии</Text>
-            {/* Show comments */}
-            {getCommentsById(card.id, comments.list).map((comment) => (
-              <Comment comment={comment} key={comment.id} />
-            ))}
-          </CommentList>
+          <CardComments card={card}/>
         </Block>
       </Card>
     </Wrapper>
@@ -152,10 +127,6 @@ const ColumnTitle = styled.span`
   text-decoration: underline;
   cursor: pointer;
 `;
-
-const CommentList = styled.div`
-  margin: 10px;
-`
 
 const Close = styled.div`
   font-size: 1.5rem;

@@ -1,20 +1,35 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ColumnData } from 'lib/interfaces';
 import { useData } from 'components/Context';
-import { Button, InputChange } from 'components/ui';
+import { Button, Input } from 'components/ui';
 
 const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
   const [isChange, setIsChange] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null)
+  const [value, setValue] = useState(column.title)
 
   const { columns } = useData();
 
-  const setTitle = (value: string): void => {
+  const setTitle = () => {
     if (value.trim()) {
       columns.changeTitle(column.id, value);
       setIsChange(!isChange);
     }
+  };
+
+  const keyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+        blurHandler()
+    }
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value)
+  }
+
+  const blurHandler = () => {
+    setTitle()
+    setIsChange(!isChange);
   };
 
   return (
@@ -22,11 +37,12 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
       {!isChange ? (
         <Title>{column.title}</Title>
       ) : (
-        <InputChange
-          placeholder="Имя карточки"
-          setValue={setTitle}
-          inputRef={inputRef}
-          value={column.title}
+        <Input
+          placeholder={"Введите название карточки"}
+          onKeyPress={keyPress}
+          onBlur={blurHandler}
+          onChange={onChange}
+          value={value}
         />
       )}
       {!isChange && (

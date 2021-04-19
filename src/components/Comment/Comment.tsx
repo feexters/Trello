@@ -1,46 +1,61 @@
-import React, { useRef, useState } from "react";
-import { CommentData } from "../../lib/interfaces";
+import React, { useState } from "react";
+import { CommentData } from "lib/interfaces";
 import styled from "styled-components";
-import { useData } from "../Context";
-import { ChangePanel } from "../ChangePanel";
-import { InputChange } from "../ui";
+import { useData } from "components/Context";
+import { ChangePanel } from "components/ChangePanel";
+import { TextArea } from "components/ui";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
+  const [value, setValue] = useState(comment.value)
 
   const { user, comments } = useData()
-
-  const inputRef = useRef<HTMLInputElement>(null)
-
   const [isChange, setIsChange] = useState(false)
 
-  const changeComment = (value: string) => {
+  const changeComment = () => {
     if (value.trim()) {
       comments.change(comment.id, value)
       setIsChange(!isChange)
     }
   }
 
+  const keyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+        blurHandler()
+    }
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setValue(event.target.value)
+  }
+
+  const blurHandler = () => {
+    changeComment()
+    setIsChange(!isChange);
+  };
+  
   return (
     <Wrapper>
-      {!isChange && (
+      {!isChange ? (
         <>
           <Author>{comment.author}:</Author>
           <Value>{comment.value}</Value>
         </>
+      ) : (
+        isChange && (
+          <TextArea
+            placeholder={"Введите название карточки"}
+            onKeyPress={keyPress}
+            onBlur={blurHandler}
+            onChange={onChange}
+            value={value}
+          />
+        )
       )}
       {!isChange && comment.author === user.name && (
         <ChangePanel
           onDelete={() => comments.delete(comment.id)}
           onChange={() => setIsChange(!isChange)}
         ></ChangePanel>
-      )}
-      {isChange && (
-        <InputChange
-          inputRef={inputRef}
-          placeholder="Комментарий"
-          setValue={changeComment}
-          value={comment.value}
-        />
       )}
     </Wrapper>
   );

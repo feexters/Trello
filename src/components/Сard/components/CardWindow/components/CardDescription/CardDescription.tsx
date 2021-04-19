@@ -1,50 +1,57 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { CardData } from "lib/interfaces";
 import { useData } from "components/Context";
-import { Button, InputChange } from "components/ui";
+import { Button, TextArea } from "components/ui";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
+  const [value, setValue] = useState(card.description)
   const { cards, user } = useData()
-  const inputRef = useRef<HTMLInputElement>(null)
 
-  // Update description of card
-  const setDescription = (value: string): void => {
+  const setDescription = () => {
     if (value.trim()) {
-      cards.changeDescription(card.id, value)
-      setIsChange(!isChange)
+      cards.changeDescription(card.id, value);
+      setIsChange(!isChange);
     }
-    console.log(value)
-  }
+    console.log(value);
+  };
 
-    // /* Focus on the input */
-    // useEffect(() => {
-    //   if (isChange) {
-    //     inputRef.current!.focus();
-    //     inputRef.current!.value = card.description
-    //   }
-    // }, [isChange, card.description]);
+  const keyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      blurHandler();
+    }
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.target.value);
+  };
+
+  const blurHandler = () => {
+    setDescription();
+    setIsChange(!isChange);
+  };
 
   return (
     <Wrapper>
       {!isChange && card.description && <Text>{card.description}</Text>}
       {!isChange && card.author === user.name && (
-          <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
+        <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
       )}
       {isChange && (
-        <InputChange
-          placeholder="Описание"
-          setValue={setDescription}
-          inputRef={inputRef}
-          value={card.description}
+        <TextArea
+          placeholder={"Введите название карточки"}
+          onKeyPress={keyPress}
+          onBlur={blurHandler}
+          onChange={onChange}
+          value={value}
         />
       )}
     </Wrapper>
   );
 };
 
-const Text = styled.div`
+const Text = styled.p`
   padding: 5px;
   font-size: 1.3rem;
 `

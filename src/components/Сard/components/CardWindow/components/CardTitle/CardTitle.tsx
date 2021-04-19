@@ -1,41 +1,54 @@
 import styled from "styled-components";
-import React, { useRef, useState } from 'react'
-import { Button, InputChange } from "components/ui";
+import React, { useState } from 'react'
+import { Button, Input } from "components/ui";
 import { useData } from "components/Context";
 import { CardData } from "lib/interfaces";
 
 const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
-  const inputRef = useRef<HTMLInputElement>(null)
   const [isChange, setIsChange] = useState(false)
+  const [value, setValue] = useState(card.title)
 
 
   const { cards, user } = useData()
 
-  const setTitle = (value: string): void => {
+  const setTitle = () => {
     if(value.trim()) {
       cards.changeTitle(card.id, value)
       setIsChange(!isChange)
     }
   }
 
+  const keyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+        blurHandler()
+    }
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value)
+  }
+
+  const blurHandler = () => {
+    setTitle()
+    setIsChange(!isChange);
+  };
+
   return (
     <>
       {!isChange ? (
         <Title>{card.title}</Title>
       ) : (
-        <InputChange
-          placeholder="Имя карточки"
-          setValue={setTitle}
-          inputRef={inputRef}
-          value = {card.title}
+        <Input
+          placeholder={"Введите название карточки"}
+          onKeyPress={keyPress}
+          onBlur={blurHandler}
+          onChange={onChange}
+          value={value}
         />
       )}
 
       {!isChange && card.author === user.name && (
-        <Button
-          title="Изменить"
-          clickHandler={() => setIsChange(!isChange)}
-        />
+        <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
       )}
     </>
   );

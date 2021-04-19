@@ -1,70 +1,48 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { InputSettings } from 'lib/types';
 import { useData } from 'components/Context';
-import { Input, Button } from 'components/ui';
+import { Input } from 'components/ui';
 
 const Login: React.FC  = () => {
-    // Ref for input 
-    const inputRef = useRef<HTMLInputElement>(null)
-    // State for open or close button
-    const [isVisibleButton, setIsVisibleButton] = useState(false)
-    // Get user
+    const [value, setValue] = useState('')
     const { user } = useData()
 
-    // Set new user name
     const setUserName = () => {
-        if (inputRef.current!.value.trim()) {
-            user.change(inputRef.current!.value)
+        if (value.trim()) {
+            user.change(value)
         }
     }
 
-     /* Press Enter */
     const keyPress = (event: React.KeyboardEvent) => {
-        // Add new value, if user press Enter
         if (event.key === "Enter") {
             setUserName()
         }
     };
 
-    // Open or close button 
-    const inputToggle = () => {
-        if (inputRef.current!.value.trim()) {
-            setIsVisibleButton(true)
-        } else {
-            setIsVisibleButton(false)
-        }
-    }
-
-    const inputSettings: InputSettings = {
-        placeholder: "Имя пользователя",
-        onKeyPress: keyPress,
-        onChange: inputToggle,
-        ref: inputRef 
+    const onChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value)
     }
 
     return (
-        <>
-        {!user.name && 
-            <Wrapper>
-                <LoginWindow>
-                    <Title>Введите ваше имя:</Title>
-                    <InputWrap> 
-                        <Input settings={inputSettings}
-                        ></Input>
-                        {isVisibleButton &&
-                            <Button title="Войти" clickHandler={setUserName} success/>
-                        }
-                    </InputWrap>
-                </LoginWindow>
-            </Wrapper>
-        }
-        </>
+      <>
+        {!user.name && (
+          <Wrapper>
+            <LoginWindow>
+              <Title>Введите ваше имя:</Title>
+              <InputWrap>
+                <Input
+                  placeholder="Имя пользователя"
+                  onKeyPress={keyPress}
+                  onChange={onChange}
+                  value={value}
+                />
+              </InputWrap>
+            </LoginWindow>
+          </Wrapper>
+        )}
+      </>
     );
 }
-
-export default Login;
-
 
 const Wrapper = styled.div`
     position: fixed;
@@ -102,3 +80,5 @@ const InputWrap = styled.div`
         margin-right: 5px;
     }
 `
+
+export default Login;

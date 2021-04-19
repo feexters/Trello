@@ -1,6 +1,3 @@
-import { Button } from './Button/index'
-import { InputAdd } from './InputAdd/index'
-import { Input } from './Input/index'
-import { InputChange } from './InputChange/index'
-
-export { Button, InputAdd, Input, InputChange }
+export { Button } from './Button'
+export { Input } from './Input'
+export { TextArea } from './TextArea'

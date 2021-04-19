@@ -1,28 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface InputSettings {
+interface TextAreaSettings {
     placeholder: string,
     onKeyPress(event: React.KeyboardEvent): void,
     onBlur?(): void,
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
+    onChange?(event: React.ChangeEvent<HTMLTextAreaElement>): void,
     value: string
 } 
 
-const Input: React.FC<InputSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
+const TextArea: React.FC<TextAreaSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
     return (
-      <StyledInput
+      <StyledTextArea
         placeholder={placeholder}
         onKeyPress={onKeyPress}
         onBlur={onBlur}
         onChange={onChange}
         value={value}
         autoFocus
-      ></StyledInput>
+      />
     );
 }
 
-const StyledInput = styled.input`
+const StyledTextArea = styled.textarea`
     width: 100%;
     padding: 5px 10px;
     background-color: white;
@@ -36,4 +36,4 @@ const StyledInput = styled.input`
     }
 `
 
-export default Input;
+export default TextArea;
