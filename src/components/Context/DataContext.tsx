@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {  ColumnData, CardData, CommentData } from '../../lib/interfaces';
-import { deleteElemById, getCommentsById, StorageService } from '../../lib/utils'
+import {  ColumnData, CardData, CommentData } from 'lib/interfaces';
+import { deleteElemById, getCommentsById, StorageService } from 'lib/utils'
 
 
 const DataContext = React.createContext({

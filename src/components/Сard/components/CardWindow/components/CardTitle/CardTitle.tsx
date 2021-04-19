@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import React, { useRef, useState } from 'react'
-import { Button, InputChange } from "../ui";
-import { useData } from "../Context";
-import { CardData } from "../../lib/interfaces";
+import { Button, InputChange } from "components/ui";
+import { useData } from "components/Context";
+import { CardData } from "lib/interfaces";
 
 const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -41,8 +41,9 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
   );
 };
 
-export default CardTitle;
-
 const Title = styled.div`
   font-size: 2.5rem;
 `;
+
+export default CardTitle;
+

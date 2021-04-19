@@ -15,8 +15,6 @@ const ChangePanel: React.FC<ChangePanelProps> = ({onDelete, onChange}) => {
     );
 }
 
-export default ChangePanel;
-
 const Wrapper = styled.div`
 `
 const StyledButton = styled.button`
@@ -32,3 +30,5 @@ const StyledButton = styled.button`
         background-color: rgba(0, 0, 0, 0.2);
     }
 `
+
+export default ChangePanel;

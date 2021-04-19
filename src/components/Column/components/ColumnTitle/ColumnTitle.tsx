@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ColumnData } from '../../lib/interfaces';
-import { useData } from '../Context';
-import { Button, InputChange } from '../ui';
+import { ColumnData } from 'lib/interfaces';
+import { useData } from 'components/Context';
+import { Button, InputChange } from 'components/ui';
 
 const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
   const [isChange, setIsChange] = useState(false);
@@ -36,9 +36,9 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
   );
 }
 
-export default ColumnTitle;
-
 const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: bold;
 `;
+
+export default ColumnTitle

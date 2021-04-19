@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { InputSettings } from '../../lib/types';
-import { useData } from '../Context/index';
-import { Input, Button } from '../ui';
+import { InputSettings } from 'lib/types';
+import { useData } from 'components/Context';
+import { Input, Button } from 'components/ui';
 
 const Login: React.FC  = () => {
     // Ref for input 

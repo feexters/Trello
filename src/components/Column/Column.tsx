@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { CardPreview } from "../Сard";
-import { ColumnData, CardData } from '../../lib/interfaces'
-import { useData } from "../Context";
-import { InputAdd } from "../ui";
-import { getId, getCardsById } from "../../lib/utils";
-import ColumnTitle from "./ColumnTitle";
+import { CardPreview } from "components/Сard";
+import { ColumnData, CardData } from 'lib/interfaces'
+import { useData } from "components/Context";
+import { InputAdd } from "components/ui";
+import { getId, getCardsById } from "lib/utils";
+import ColumnTitle from "./components/ColumnTitle/ColumnTitle";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   
@@ -39,7 +39,6 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
           );
         })}
 
-      {/* Create new card */}
       <InputAdd
         setValue={(value: string) => addCard(value)}
         placeholder="Введите название карточки"
@@ -49,8 +48,6 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
     </Wrapper>
   );
 };
-
-export default Column;
 
 /* Styles */
 const Wrapper = styled.div`
@@ -69,3 +66,5 @@ const Wrapper = styled.div`
     margin-bottom: 5px;
   }
 `;
+
+export default Column

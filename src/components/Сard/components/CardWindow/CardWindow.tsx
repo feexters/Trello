@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { CardDescription, CardTitle} from './index'
-import { Comment, CommentInput } from '../Comment/index'
-import { useData } from "../Context/index";
-import { CardData, ColumnData, CommentData } from "../../lib/interfaces"
-import { getId, getCommentsById } from "../../lib/utils";
+import { CardDescription, CardTitle} from './components'
+import { Comment, CommentInput } from 'components/Comment'
+import { useData } from "components/Context";
+import { CardData, ColumnData, CommentData } from "lib/interfaces"
+import { getId, getCommentsById } from "lib/utils";
 
 interface CardModalProps {
     card: CardData,
@@ -29,14 +29,12 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
     }
   }
 
-  // Close window
   const onClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if ((event.target as Element).classList.contains("overlay")) {
       close()
     }
   }
 
-  /* Close window by Escape */
   const onKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {
         close()
@@ -91,8 +89,6 @@ const CardWindow: React.FC<CardModalProps> = ({ card, column, close }) => {
     </Wrapper>
   );
 };
-
-export default CardWindow;
 
 const Wrapper = styled.div`
   position: fixed;
@@ -165,3 +161,5 @@ const Close = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
 `;
+
+export default CardWindow;

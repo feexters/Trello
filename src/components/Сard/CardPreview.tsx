@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CardData, ColumnData } from "../../lib/interfaces";
-import { getCommentsById } from "../../lib/utils";
-import { ChangePanel } from "../ChangePanel";
-import { useData } from "../Context/index";
-import { CardWindow } from "./index";
+import { CardData, ColumnData } from "lib/interfaces";
+import { getCommentsById } from "lib/utils";
+import { ChangePanel } from "components/ChangePanel";
+import { useData } from "components/Context";
+import { CardWindow } from "./components/CardWindow";
 
 interface CardPreviewProps {
     card: CardData,

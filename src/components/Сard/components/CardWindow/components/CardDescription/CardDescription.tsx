@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { CardData } from "../../lib/interfaces";
-import { useData } from "../Context";
-import { Button, InputChange } from "../ui/index";
+import { CardData } from "lib/interfaces";
+import { useData } from "components/Context";
+import { Button, InputChange } from "components/ui";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
@@ -44,8 +44,6 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   );
 };
 
-export default CardDescription;
-
 const Text = styled.div`
   padding: 5px;
   font-size: 1.3rem;
@@ -57,3 +55,6 @@ const Wrapper = styled.div`
     margin-right: 10px;
   }
 `;
+
+
+export default CardDescription;
