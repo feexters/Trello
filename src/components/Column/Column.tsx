@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { CardPreview } from "components/Сard";
 import { ColumnData, CardData } from 'lib/interfaces'
@@ -44,10 +44,15 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
     setIsVisibleInput(!isVisibleInput);
   };
 
+  const cardsList = useMemo(
+    () => cards.list.filter((elem) => elem.columnId === column.id),
+    [cards.list, column.id]
+  );
+
   return (
     <Wrapper>
       <ColumnTitle column={column} />
-      {cards.list.filter(elem => elem.columnId === column.id).map((card) => {
+      {cardsList.map((card) => {
         return (
           <CardPreview card={card} column={column} key={card.id}></CardPreview>
         );

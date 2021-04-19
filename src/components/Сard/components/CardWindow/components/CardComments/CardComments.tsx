@@ -1,9 +1,9 @@
-import { Comment } from "components/Comment";
+import { Comment } from "./components/Comment";
 import { useData } from "components/Context";
 import { Button, TextArea } from "components/ui";
 import { CardData, CommentData } from "lib/interfaces";
 import { getId } from "lib/utils";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 
 const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
@@ -39,6 +39,11 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
     setIsVisibleInput(!isVisibleInput)
     setInputValue("");
   };
+  
+  const commentsList = useMemo(
+    () => comments.list.filter((elem) => elem.cardId === card.id),
+    [comments.list, card.id]
+  );
 
   return (
     <div>
@@ -58,9 +63,7 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
 
       <CommentList>
         <Text>Комментарии</Text>
-        {/* Show comments */}
-        {comments.list
-          .filter((elem) => elem.cardId === card.id)
+        {commentsList
           .map((comment) => (
             <Comment comment={comment} key={comment.id} />
           ))}

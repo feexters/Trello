@@ -14,8 +14,6 @@ const Button: React.FC<ButtonProps> = ({ clickHandler, isSuccessTheme = false, b
     );
 }
 
-export default Button;
-
 const StyledButton = styled.button<{isSuccessTheme: boolean}>`
     border: none;
     border-radius: 5px;
@@ -36,3 +34,5 @@ const StyledButton = styled.button<{isSuccessTheme: boolean}>`
         outline: none
     }
 `
+
+export default Button;

@@ -1,4 +1,4 @@
-import { CardData, ColumnData, CommentData } from "../interfaces"
+import { CardData, ColumnData, CommentData } from "lib/interfaces"
 
 class StorageService {
     public USER = 'user'
@@ -17,8 +17,9 @@ class StorageService {
             {id: '2', title: "Testing"},
             {id: '3', title: "Done"}
         ];
-        
-        if (!localStorage.getItem('columns')) localStorage.setItem('columns', JSON.stringify(columnsList))
+
+        localStorage.setItem(this.USER, '')
+        if (!localStorage.getItem('columns')) localStorage.setItem(this.COLUMNS, JSON.stringify(columnsList))
     }
 
     addUser(value: string) {

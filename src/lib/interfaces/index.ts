@@ -1,6 +1,4 @@
-import ColumnData from './ColumnData'
-import CardData from './CardData'
-import CommentData from './CommentData'
-
-export type { ColumnData, CardData, CommentData }
+export type { default as ColumnData } from './ColumnData'
+export type { default as CardData } from './CardData'
+export type { default as CommentData } from './CommentData'
 
