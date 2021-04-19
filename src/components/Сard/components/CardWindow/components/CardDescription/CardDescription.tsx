@@ -36,7 +36,7 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
     <Wrapper>
       {!isChange && card.description && <Text>{card.description}</Text>}
       {!isChange && card.author === user.name && (
-        <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
+        <Button clickHandler={() => setIsChange(!isChange)}>Изменить</Button>
       )}
       {isChange && (
         <TextArea

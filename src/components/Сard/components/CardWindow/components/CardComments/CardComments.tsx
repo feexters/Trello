@@ -52,9 +52,8 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
         />
       ) : (
         <Button
-          title="Оставить комментарий"
           clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-        />
+        >Оставить комментарий</Button>
       )}
 
       <CommentList>

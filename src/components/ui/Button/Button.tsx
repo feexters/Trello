@@ -1,23 +1,22 @@
 import React from 'react';
 import styled from 'styled-components'
 
-type ButtonProps = {
-    title: string, 
+type ButtonProps = { 
     clickHandler(): void,
-    success?: boolean
+    isSuccessTheme?: boolean
     btnRef?: React.RefObject<HTMLButtonElement>
 }
 
-const Button: React.FC<ButtonProps> = ({ title, clickHandler, success = false, btnRef }) => {
+const Button: React.FC<ButtonProps> = ({ clickHandler, isSuccessTheme = false, btnRef , children}) => {
     
     return (
-       <StyledButton onClick={clickHandler} success={success} ref={btnRef}>{title}</StyledButton> 
+       <StyledButton onClick={clickHandler} isSuccessTheme={isSuccessTheme} ref={btnRef}>{children}</StyledButton> 
     );
 }
 
 export default Button;
 
-const StyledButton = styled.button<{success: boolean}>`
+const StyledButton = styled.button<{isSuccessTheme: boolean}>`
     border: none;
     border-radius: 5px;
     padding: 5px;
@@ -25,13 +24,13 @@ const StyledButton = styled.button<{success: boolean}>`
     margin: 2px 0;
     
 
-    color: ${({ success }) => success ? 'white' : 'black'};
-    background-color: ${({ success }) => success ? 'rgb(97, 189, 79)' : 'rgb(210, 210, 210)'};
+    color: ${({ isSuccessTheme }) => isSuccessTheme ? 'white' : 'black'};
+    background-color: ${({ isSuccessTheme }) => isSuccessTheme ? 'rgb(97, 189, 79)' : 'rgb(210, 210, 210)'};
     cursor: pointer;
 
     &:hover {
         /* background-color: rgb(200, 200, 200); */
-        background-color: ${({ success }) => success ? 'rgb(47, 177, 43)' : 'rgb(200, 200, 200)'};
+        background-color: ${({ isSuccessTheme }) => isSuccessTheme ? 'rgb(47, 177, 43)' : 'rgb(200, 200, 200)'};
     }
 
     &:focus {

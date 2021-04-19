@@ -63,7 +63,6 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
 
 export default Comment;
 
-/* Styles */
 const Wrapper = styled.div`
   width: 50%;
   padding: 5px 10px;

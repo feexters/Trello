@@ -56,9 +56,8 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
       <InputWrapper>
         {!isVisibleInput ? (
           <Button
-            title={"+ Добавить еще одну карточку"}
             clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-          ></Button>
+          >+ Добавить еще одну карточку</Button>
         ) : (
           <>
             <Input
@@ -70,24 +69,17 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
             />
             <ButtonWrapper>
               <Button
-                title={"Сохранить"}
                 clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-                success
-              ></Button>
+                isSuccessTheme
+              >Добавить</Button>
             </ButtonWrapper>
           </>
         )}
       </InputWrapper>
-      {/* <InputAdd
-        setValue={(value: string) => addCard(value)}
-        placeholder="Введите название карточки"
-        buttons={{ title: "+ Добавить еще одну карточку" }}
-      ></InputAdd> */}
     </Wrapper>
   );
 };
 
-/* Styles */
 const Wrapper = styled.div`
   width: 100%;
   max-width: 250px;

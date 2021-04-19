@@ -46,7 +46,7 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
         />
       )}
       {!isChange && (
-        <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
+        <Button clickHandler={() => setIsChange(!isChange)}>Изменить</Button>
       )}
     </>
   );

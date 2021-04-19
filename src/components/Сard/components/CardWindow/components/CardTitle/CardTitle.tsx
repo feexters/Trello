@@ -48,7 +48,7 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
       )}
 
       {!isChange && card.author === user.name && (
-        <Button title="Изменить" clickHandler={() => setIsChange(!isChange)} />
+        <Button clickHandler={() => setIsChange(!isChange)}>Изменить</Button>
       )}
     </>
   );
