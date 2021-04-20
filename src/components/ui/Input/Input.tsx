@@ -12,35 +12,28 @@ interface InputSettings {
 
 const Input: React.FC<InputSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
     return (
-      <>
-        {/* <StyledInput
-          placeholder={placeholder}
-          onKeyPress={onKeyPress}
-          onBlur={onBlur}
-          onChange={onChange}
-          value={value}
-          autoFocus
-        ></StyledInput> */}
+      <StyledInput>
         <Form
           onSubmit={() => {}}
+          initialValues={{ value: value }}
           render={() => (
             <Field
-              name="myField"
-              component={StyledInput}
+              name="value"
+              component="input"
               placeholder={placeholder}
               onKeyPress={onKeyPress}
               onBlur={onBlur}
               onChange={onChange}
-              value={value}
               autoFocus
             />
           )}
         />
-      </>
+      </StyledInput>
     );
 }
 
-const StyledInput = styled.input`
+const StyledInput = styled.div`
+  input {
     width: 100%;
     padding: 5px 10px;
     background-color: white;
@@ -50,8 +43,9 @@ const StyledInput = styled.input`
     font-size: 1.5rem;
 
     &:focus {
-        outline: none
+      outline: none;
     }
-`
+  }
+`;
 
 export default Input;

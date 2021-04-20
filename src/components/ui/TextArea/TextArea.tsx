@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 
 interface TextAreaSettings {
@@ -11,18 +12,28 @@ interface TextAreaSettings {
 
 const TextArea: React.FC<TextAreaSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
     return (
-      <StyledTextArea
-        placeholder={placeholder}
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-        onChange={onChange}
-        value={value}
-        autoFocus
-      />
+      <StyledTextArea>
+        <Form
+          onSubmit={() => {}}
+          initialValues={{ value: value }}
+          render={() => (
+            <Field
+              name="value"
+              component="input"
+              placeholder={placeholder}
+              onKeyPress={onKeyPress}
+              onBlur={onBlur}
+              onChange={onChange}
+              autoFocus
+            />
+          )}
+        />
+      </StyledTextArea>
     );
 }
 
-const StyledTextArea = styled.textarea`
+const StyledTextArea = styled.div`
+  textarea {
     width: 100%;
     padding: 5px 10px;
     background-color: white;
@@ -32,8 +43,9 @@ const StyledTextArea = styled.textarea`
     font-size: 1.5rem;
 
     &:focus {
-        outline: none
+      outline: none;
     }
-`
+  }
+`;
 
 export default TextArea;
