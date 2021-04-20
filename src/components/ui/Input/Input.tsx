@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 
 interface InputSettings {
@@ -11,14 +12,31 @@ interface InputSettings {
 
 const Input: React.FC<InputSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
     return (
-      <StyledInput
-        placeholder={placeholder}
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-        onChange={onChange}
-        value={value}
-        autoFocus
-      ></StyledInput>
+      <>
+        {/* <StyledInput
+          placeholder={placeholder}
+          onKeyPress={onKeyPress}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+          autoFocus
+        ></StyledInput> */}
+        <Form
+          onSubmit={() => {}}
+          render={() => (
+            <Field
+              name="myField"
+              component={StyledInput}
+              placeholder={placeholder}
+              onKeyPress={onKeyPress}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              autoFocus
+            />
+          )}
+        />
+      </>
     );
 }
 
