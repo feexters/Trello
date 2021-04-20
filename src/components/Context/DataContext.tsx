@@ -58,6 +58,7 @@ const DataProvider: React.FC = ({ children }) => {
             if (elem.id === id) {
                 const newElem = { ...elem }
                 newElem.title = value
+                return newElem
             } 
 
             return elem 
@@ -69,6 +70,7 @@ const DataProvider: React.FC = ({ children }) => {
             if (elem.id === id) {
                 const newElem = { ...elem }
                 newElem.description = value
+                return newElem
             } 
 
             return elem 
@@ -80,6 +82,7 @@ const DataProvider: React.FC = ({ children }) => {
             if (elem.id === id) {
                 const newElem = { ...elem }
                 newElem.value = value
+                return newElem
             } 
 
             return elem 
@@ -91,6 +94,7 @@ const DataProvider: React.FC = ({ children }) => {
             if (elem.id === id) {
                 const newElem = { ...elem }
                 newElem.title = value
+                return newElem
             } 
 
             return elem 
