@@ -56,7 +56,8 @@ const DataProvider: React.FC = ({ children }) => {
     const changeCardTitle = (id: string, value: string) => {
         setCards(prev => prev.map(elem => {
             if (elem.id === id) {
-                elem.title = value
+                const newElem = { ...elem }
+                newElem.title = value
             } 
 
             return elem 
@@ -66,7 +67,8 @@ const DataProvider: React.FC = ({ children }) => {
     const changeCardDescription = (id: string, value: string) => {
         setCards(prev => prev.map(elem => {
             if (elem.id === id) {
-                elem.description = value
+                const newElem = { ...elem }
+                newElem.description = value
             } 
 
             return elem 
@@ -76,7 +78,8 @@ const DataProvider: React.FC = ({ children }) => {
     const changeComment = (id: string, value: string) => {
         setComments(prev => prev.map(elem => {
             if (elem.id === id) {
-                elem.value = value
+                const newElem = { ...elem }
+                newElem.value = value
             } 
 
             return elem 
@@ -86,7 +89,8 @@ const DataProvider: React.FC = ({ children }) => {
     const changeColumnTitle = (id: string, value: string) => {
         setColumns(prev => prev.map(elem => {
             if (elem.id === id) {
-                elem.title = value
+                const newElem = { ...elem }
+                newElem.title = value
             } 
 
             return elem 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { CardData, ColumnData } from "lib/interfaces";
 import { ChangePanel } from "components/ChangePanel";
@@ -15,7 +15,9 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
 
   const { comments, user, cards } = useData()
 
-  const commentsCount = comments.list.filter(elem => elem.cardId === card.id).length
+  const commentsList = useMemo(() => comments.list.filter(elem => elem.cardId === card.id), [comments.list, card.id])
+
+  const commentsCount = commentsList.length
 
   return (
     <>

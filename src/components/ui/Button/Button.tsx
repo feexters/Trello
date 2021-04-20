@@ -4,13 +4,12 @@ import styled from 'styled-components'
 type ButtonProps = { 
     clickHandler(): void,
     isSuccessTheme?: boolean
-    btnRef?: React.RefObject<HTMLButtonElement>
 }
 
-const Button: React.FC<ButtonProps> = ({ clickHandler, isSuccessTheme = false, btnRef , children}) => {
+const Button: React.FC<ButtonProps> = ({ clickHandler, isSuccessTheme = false, children}) => {
     
     return (
-       <StyledButton onClick={clickHandler} isSuccessTheme={isSuccessTheme} ref={btnRef}>{children}</StyledButton> 
+       <StyledButton onClick={clickHandler} isSuccessTheme={isSuccessTheme}>{children}</StyledButton> 
     );
 }
 
