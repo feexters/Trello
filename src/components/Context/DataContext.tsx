@@ -38,7 +38,7 @@ const DataProvider: React.FC = ({ children }) => {
     const [comments, setComments] = useState<CommentData[]>(StorageService.getComments() || [])
     const [cards, setCards]       = useState<CardData[]>(StorageService.getCards() || [])
     const [userName, setUserName] = useState<string | null>(StorageService.getUser() || '')
-    const [columns, setColumns] = useState<ColumnData[]>(StorageService.getColumns())
+    const [columns, setColumns]   = useState<ColumnData[]>(StorageService.getColumns())
 
     const changeUserName = (value: string | null) => {
         setUserName(value)

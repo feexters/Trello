@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useData } from 'components/Context';
 import { Input } from 'components/ui';
+import { store, setUserName } from 'store'
+import { useAppSelector } from 'lib/hooks/hooks';
 
 const Login: React.FC  = () => {
+    const userName = useAppSelector(state => state.user.name)!
     const [value, setValue] = useState('')
-    const { user } = useData()
-
-    const setUserName = () => {
-        if (value.trim()) {
-            user.change(value)
-        }
-    }
 
     const keyPress = (event: React.KeyboardEvent) => {
-        if (event.key === "Enter") {
-            setUserName()
-        }
+      if (event.key === "Enter" && value.trim()) {
+        store.dispatch(setUserName(value))
+      }
     };
 
     const onChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value)
+      setValue(event.target.value)
     }
 
     return (
       <>
-        {!user.name && (
+        {!userName && (
           <Wrapper>
             <LoginWindow>
               <Title>Введите ваше имя:</Title>

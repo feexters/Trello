@@ -11,11 +11,13 @@ interface InputSettings {
 } 
 
 const Input: React.FC<InputSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
+    const initialValues = { value: value };
+
     return (
       <StyledInput>
         <Form
           onSubmit={() => {}}
-          initialValues={{ value: value }}
+          initialValues={initialValues}
           render={() => (
             <Field
               name="value"
