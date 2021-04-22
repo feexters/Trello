@@ -1,7 +1,8 @@
-import { configureStore  } from "@reduxjs/toolkit";
+import { createStore  } from "@reduxjs/toolkit";
 import { reducer } from "./reducers";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export const store = configureStore({reducer})
+export const store = createStore(reducer, composeWithDevTools())
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

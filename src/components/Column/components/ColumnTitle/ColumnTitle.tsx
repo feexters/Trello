@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ColumnData } from 'lib/interfaces';
-import { useData } from 'components/Context';
 import { Button, Input } from 'components/ui';
+import { setColumnTitle, store } from 'store';
 
 const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
   const [isChange, setIsChange] = useState(false);
   const [value, setValue] = useState(column.title)
 
-  const { columns } = useData();
-
   const setTitle = () => {
     if (value.trim()) {
-      columns.changeTitle(column.id, value);
+      store.dispatch(setColumnTitle({id: column.id, title: value}))
       setIsChange(!isChange);
     }
   };

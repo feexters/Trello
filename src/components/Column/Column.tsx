@@ -2,18 +2,19 @@ import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { CardPreview } from "components/Сard";
 import { ColumnData, CardData } from 'lib/interfaces'
-import { useData } from "components/Context";
 import { Button, Input } from "components/ui";
 import { getId } from "lib/utils";
 import ColumnTitle from "./components/ColumnTitle/ColumnTitle";
+import { addCard, store } from "store";
+import { useAppSelector } from "lib/hooks/hooks";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   const [isVisibleInput, setIsVisibleInput] = useState(false);
   const [inputValue, setInputValue] = useState('')
 
-  const { cards, user } = useData()
+  const { cards, user } = useAppSelector(state => state)
 
-  const addCard = () => {
+  const createCard = () => {
     if (inputValue.trim()) {
 
       const newCard: CardData = {
@@ -24,7 +25,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
         columnId: column.id
       }
 
-      cards.add(newCard)
+      store.dispatch(addCard(newCard))
     }
   }
 
@@ -39,7 +40,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   }
 
   const blurHandler = () => {
-    addCard()
+    createCard()
     setInputValue('')
     setIsVisibleInput(!isVisibleInput);
   };

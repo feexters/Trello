@@ -2,8 +2,9 @@ import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { CardData, ColumnData } from "lib/interfaces";
 import { ChangePanel } from "components/ChangePanel";
-import { useData } from "components/Context";
 import { CardWindow } from "./components/CardWindow";
+import { useAppSelector } from "lib/hooks/hooks";
+import { deleteCard, deleteComment, store } from "store";
 
 interface CardPreviewProps {
     card: CardData,
@@ -13,11 +14,17 @@ interface CardPreviewProps {
 const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
 
-  const { comments, user, cards } = useData()
+  const { user, comments } = useAppSelector(state => state)
 
   const commentsList = useMemo(() => comments.list.filter(elem => elem.cardId === card.id), [comments.list, card.id])
 
   const commentsCount = commentsList.length
+
+  const onDelete = () => {
+    store.dispatch(deleteCard(card.id))
+    const commentsList = comments.list.filter(elem => elem.cardId === card.id)
+    commentsList.map(elem => store.dispatch(deleteComment(elem.id)))
+  }
 
   return (
     <>
@@ -31,7 +38,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
           </Comments>
         )}
 
-        {card.author === user.name && <ChangePanel onDelete={() =>{cards.delete(card.id)}}></ChangePanel>}
+        {card.author === user.name && <ChangePanel onDelete={onDelete}></ChangePanel>}
       </Wrapper>
 
       {isVisibleModal && (

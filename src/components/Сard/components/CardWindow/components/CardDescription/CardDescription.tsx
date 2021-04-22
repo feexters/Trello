@@ -1,17 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { CardData } from "lib/interfaces";
-import { useData } from "components/Context";
 import { Button, TextArea } from "components/ui";
+import { setCardDescription, store } from "store";
+import { useAppSelector } from "lib/hooks/hooks";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
   const [value, setValue] = useState(card.description)
-  const { cards, user } = useData()
+  const user = useAppSelector(state => state.user)
 
   const setDescription = () => {
     if (value.trim()) {
-      cards.changeDescription(card.id, value);
+      store.dispatch(setCardDescription({id: card.id, value: value}))
       setIsChange(!isChange);
     }
     console.log(value);

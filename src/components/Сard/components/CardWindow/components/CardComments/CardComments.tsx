@@ -1,17 +1,18 @@
 import { Comment } from "./components/Comment";
-import { useData } from "components/Context";
 import { Button, TextArea } from "components/ui";
 import { CardData, CommentData } from "lib/interfaces";
 import { getId } from "lib/utils";
 import React, { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useAppSelector } from "lib/hooks/hooks";
+import { addComment, store } from "store";
 
 const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
-  const { comments, user } = useData();
+  const { comments, user } = useAppSelector(state => state)
   const [inputValue, setInputValue] = useState("");
   const [isVisibleInput, setIsVisibleInput] = useState(false);
 
-  const addComment = () => {
+  const addNewComment = () => {
     if (inputValue.trim()) {
       const newComment: CommentData = {
         id: getId(),
@@ -20,7 +21,7 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
         cardId: card.id,
       };
 
-      comments.add(newComment);
+      store.dispatch(addComment(newComment))
     }
   };
 
@@ -35,7 +36,7 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
   };
 
   const blurHandler = () => {
-    addComment();
+    addNewComment();
     setIsVisibleInput(!isVisibleInput)
     setInputValue("");
   };

@@ -1,3 +1,5 @@
 export { store } from './store'
 export type { RootState, AppDispatch } from './store'
-export { setUserName } from './slices'
+export { setUserName, setColumnTitle } from './slices'
+export { addCard, setCardTitle, setCardDescription, deleteCard } from './slices'
+export { addComment, setCommentValue, deleteComment } from './slices'

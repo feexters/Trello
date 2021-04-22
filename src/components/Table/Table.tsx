@@ -1,16 +1,16 @@
 import React from "react";
 import { Column } from "components/Column";
 import styled from "styled-components";
-import { useData } from "components/Context";
+import { useAppSelector } from "lib/hooks/hooks";
 
 const Table: React.FC = () => {
-  const { columns } = useData()
+  const columns = useAppSelector(state => state.columns);
 
   return (
       <Wrapper>
         <ColumnsList>
-          {columns.list.map((col) => (
-            <Column column={col} key={col.id} />
+          {columns.list.map((column) => (
+            <Column column={column} key={column.id} />
           ))}
         </ColumnsList>
       </Wrapper>

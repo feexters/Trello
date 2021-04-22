@@ -3,7 +3,7 @@ import { StorageService } from "lib/utils"
 
 export const user = createSlice({
   name: "user",
-  initialState: { name: StorageService.getUser() },
+  initialState: { name: StorageService.getUser() || ''},
   reducers: { 
     setUserName: (state, action) => {
       state.name = action.payload;

@@ -6,7 +6,7 @@ export const columns = createSlice({
   name: "columns",
   initialState: { list: StorageService.getColumns() },
   reducers: { 
-    changeColumnTitle: (state, action: PayloadAction<ColumnData>) => {
+    setColumnTitle: (state, action: PayloadAction<ColumnData>) => {
       const {id, title} = action.payload
       state.list.forEach(elem => {
           if (elem.id === id) {
@@ -18,4 +18,4 @@ export const columns = createSlice({
   },
 });
 
-export const { changeColumnTitle } = columns.actions
+export const { setColumnTitle } = columns.actions
