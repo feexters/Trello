@@ -19,7 +19,7 @@ const TextArea: React.FC<TextAreaSettings> = ({placeholder, onKeyPress, onBlur, 
           render={() => (
             <Field
               name="value"
-              component="input"
+              component="textarea"
               placeholder={placeholder}
               onKeyPress={onKeyPress}
               onBlur={onBlur}

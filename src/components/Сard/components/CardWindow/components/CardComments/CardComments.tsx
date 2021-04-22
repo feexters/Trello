@@ -4,13 +4,14 @@ import { CardData, CommentData } from "lib/interfaces";
 import { getId } from "lib/utils";
 import React, { useMemo, useState } from "react";
 import styled from "styled-components";
-import { useAppSelector } from "lib/hooks/hooks";
-import { addComment, store } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
+import { addComment } from "store";
 
 const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
   const { comments, user } = useAppSelector(state => state)
   const [inputValue, setInputValue] = useState("");
   const [isVisibleInput, setIsVisibleInput] = useState(false);
+  const dispatch = useAppDispatch()
 
   const addNewComment = () => {
     if (inputValue.trim()) {
@@ -21,7 +22,7 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
         cardId: card.id,
       };
 
-      store.dispatch(addComment(newComment))
+      dispatch(addComment(newComment))
     }
   };
 

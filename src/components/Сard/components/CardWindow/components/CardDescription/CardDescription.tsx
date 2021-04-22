@@ -2,17 +2,18 @@ import { useState } from "react";
 import styled from "styled-components";
 import { CardData } from "lib/interfaces";
 import { Button, TextArea } from "components/ui";
-import { setCardDescription, store } from "store";
-import { useAppSelector } from "lib/hooks/hooks";
+import { setCardDescription } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
   const [value, setValue] = useState(card.description)
   const user = useAppSelector(state => state.user)
+  const dispatch = useAppDispatch()
 
   const setDescription = () => {
     if (value.trim()) {
-      store.dispatch(setCardDescription({id: card.id, value: value}))
+      dispatch(setCardDescription({id: card.id, value: value}))
       setIsChange(!isChange);
     }
     console.log(value);
@@ -41,7 +42,7 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
       )}
       {isChange && (
         <TextArea
-          placeholder={"Введите название карточки"}
+          placeholder={"Введите описание карточки"}
           onKeyPress={keyPress}
           onBlur={blurHandler}
           onChange={onChange}

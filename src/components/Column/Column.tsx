@@ -5,12 +5,14 @@ import { ColumnData, CardData } from 'lib/interfaces'
 import { Button, Input } from "components/ui";
 import { getId } from "lib/utils";
 import ColumnTitle from "./components/ColumnTitle/ColumnTitle";
-import { addCard, store } from "store";
-import { useAppSelector } from "lib/hooks/hooks";
+import { addCard } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   const [isVisibleInput, setIsVisibleInput] = useState(false);
   const [inputValue, setInputValue] = useState('')
+  
+  const dispatch = useAppDispatch()
 
   const { cards, user } = useAppSelector(state => state)
 
@@ -25,7 +27,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
         columnId: column.id
       }
 
-      store.dispatch(addCard(newCard))
+      dispatch(addCard(newCard))
     }
   }
 

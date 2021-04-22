@@ -2,19 +2,20 @@ import styled from "styled-components";
 import React, { useState } from 'react'
 import { Button, Input } from "components/ui";
 import { CardData } from "lib/interfaces";
-import { useAppSelector } from "lib/hooks/hooks";
-import { store } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { setCardTitle } from "store";
 
 const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
   const [value, setValue] = useState(card.title)
+  
+  const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.user)
 
   const setTitle = () => {
     if(value.trim()) {
-      store.dispatch(setCardTitle({id: card.id, value: value}))
+      dispatch(setCardTitle({id: card.id, value: value}))
       setIsChange(!isChange)
     }
   }

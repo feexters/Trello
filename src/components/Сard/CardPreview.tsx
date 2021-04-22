@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { CardData, ColumnData } from "lib/interfaces";
 import { ChangePanel } from "components/ChangePanel";
 import { CardWindow } from "./components/CardWindow";
-import { useAppSelector } from "lib/hooks/hooks";
-import { deleteCard, deleteComment, store } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
+import { deleteCard, deleteComment } from "store";
 
 interface CardPreviewProps {
     card: CardData,
@@ -20,10 +20,12 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, column }) => {
 
   const commentsCount = commentsList.length
 
+  const dispatch = useAppDispatch()
+
   const onDelete = () => {
-    store.dispatch(deleteCard(card.id))
+    dispatch(deleteCard(card.id))
     const commentsList = comments.list.filter(elem => elem.cardId === card.id)
-    commentsList.map(elem => store.dispatch(deleteComment(elem.id)))
+    commentsList.map(elem => dispatch(deleteComment(elem.id)))
   }
 
   return (

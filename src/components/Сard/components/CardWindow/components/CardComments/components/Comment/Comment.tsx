@@ -3,18 +3,20 @@ import { CommentData } from "lib/interfaces";
 import styled from "styled-components";
 import { ChangePanel } from "components/ChangePanel";
 import { TextArea } from "components/ui";
-import { useAppSelector } from "lib/hooks/hooks";
-import { deleteComment, setCommentValue, store } from "store";
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
+import { deleteComment, setCommentValue } from "store";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
   const [value, setValue] = useState(comment.value)
+
+  const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.user)
   const [isChange, setIsChange] = useState(false)
 
   const changeComment = () => {
     if (value.trim()) {
-      store.dispatch(setCommentValue({id: comment.id, value: value}))
+      dispatch(setCommentValue({id: comment.id, value: value}))
       setIsChange(!isChange)
     }
   }
@@ -54,7 +56,7 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
       )}
       {!isChange && comment.author === user.name && (
         <ChangePanel
-          onDelete={() => store.dispatch(deleteComment(comment.id))}
+          onDelete={() => dispatch(deleteComment(comment.id))}
           onChange={() => setIsChange(!isChange)}
         ></ChangePanel>
       )}
