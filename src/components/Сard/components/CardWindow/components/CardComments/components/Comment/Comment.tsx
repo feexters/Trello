@@ -7,34 +7,18 @@ import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { deleteComment, setCommentValue } from "store";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
-  const [value, setValue] = useState(comment.value)
 
   const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.user)
   const [isChange, setIsChange] = useState(false)
 
-  const changeComment = () => {
+  const onSubmit = (value: string): void => {
     if (value.trim()) {
       dispatch(setCommentValue({id: comment.id, value: value}))
       setIsChange(!isChange)
     }
   }
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-        blurHandler()
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(event.target.value)
-  }
-
-  const blurHandler = () => {
-    changeComment()
-    setIsChange(!isChange);
-  };
   
   return (
     <Wrapper>
@@ -47,10 +31,8 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
         isChange && (
           <TextArea
             placeholder={"Введите название карточки"}
-            onKeyPress={keyPress}
-            onBlur={blurHandler}
-            onChange={onChange}
-            value={value}
+            onSubmit={onSubmit}
+            value={comment.value}
           />
         )
       )}

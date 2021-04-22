@@ -7,33 +7,17 @@ import { setCardTitle } from "store";
 
 const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
-  const [value, setValue] = useState(card.title)
   
   const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.user)
 
-  const setTitle = () => {
+  const onSubmit = (value: string) => {
     if(value.trim()) {
       dispatch(setCardTitle({id: card.id, value: value}))
       setIsChange(!isChange)
     }
   }
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-        blurHandler()
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value)
-  }
-
-  const blurHandler = () => {
-    setTitle()
-    setIsChange(!isChange);
-  };
 
   return (
     <>
@@ -42,10 +26,8 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
       ) : (
         <Input
           placeholder={"Введите название карточки"}
-          onKeyPress={keyPress}
-          onBlur={blurHandler}
-          onChange={onChange}
-          value={value}
+          onSubmit={onSubmit}
+          value={card.title}
         />
       )}
 

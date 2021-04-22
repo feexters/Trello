@@ -4,28 +4,34 @@ import styled from 'styled-components';
 
 interface TextAreaSettings {
     placeholder: string,
-    onKeyPress(event: React.KeyboardEvent): void,
-    onBlur?(): void,
-    onChange?(event: React.ChangeEvent<HTMLTextAreaElement>): void,
+    onSubmit(value: string): void
     value: string
 } 
 
-const TextArea: React.FC<TextAreaSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
+const TextArea: React.FC<TextAreaSettings> = ({placeholder, onSubmit , value}) => {
     return (
       <StyledTextArea>
         <Form
-          onSubmit={() => {}}
+          onSubmit={(value) => {
+            onSubmit(value.value || '')
+            value.value = ''
+          }}
           initialValues={{ value: value }}
-          render={() => (
-            <Field
-              name="value"
-              component="textarea"
-              placeholder={placeholder}
-              onKeyPress={onKeyPress}
-              onBlur={onBlur}
-              onChange={onChange}
-              autoFocus
-            />
+          render={({ handleSubmit, form }) => (
+            <form onSubmit={handleSubmit}>
+              <Field
+                name="value"
+                component="textarea"
+                placeholder={placeholder}
+                onKeyPress={(event: React.KeyboardEvent) => {
+                  if (event.key === 'Enter') {
+                    form.submit()
+                  }
+                }}
+                onBlur={() => form.submit()}
+                autoFocus
+              />
+            </form>
           )}
         />
       </StyledTextArea>

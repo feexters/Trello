@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'components/ui';
 import { setUserName } from 'store'
@@ -6,19 +6,14 @@ import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks';
 
 const Login: React.FC  = () => {
     const userName = useAppSelector(state => state.user.name)!
-    const [value, setValue] = useState('')
 
     const dispatch = useAppDispatch()
 
-    const keyPress = (event: React.KeyboardEvent) => {
-      if (event.key === "Enter" && value.trim()) {
+    const onSubmit = (value: string) => {
+      if (value.trim()) {
         dispatch(setUserName(value))
       }
     };
-
-    const onChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value)
-    }
 
     return (
       <>
@@ -29,9 +24,7 @@ const Login: React.FC  = () => {
               <InputWrap>
                 <Input
                   placeholder="Имя пользователя"
-                  onKeyPress={keyPress}
-                  onChange={onChange}
-                  value={value}
+                  onSubmit={onSubmit}
                 />
               </InputWrap>
             </LoginWindow>

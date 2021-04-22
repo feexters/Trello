@@ -10,18 +10,17 @@ import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   const [isVisibleInput, setIsVisibleInput] = useState(false);
-  const [inputValue, setInputValue] = useState('')
   
   const dispatch = useAppDispatch()
 
   const { cards, user } = useAppSelector(state => state)
 
-  const createCard = () => {
-    if (inputValue.trim()) {
+  const onSubmit = (value: string) => {
+    if (value.trim()) {
 
       const newCard: CardData = {
         id: getId(),
-        title: inputValue,
+        title: value,
         author: user.name!,
         description: "",
         columnId: column.id
@@ -29,23 +28,8 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
 
       dispatch(addCard(newCard))
     }
-  }
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-        blurHandler()
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value)
-  }
-
-  const blurHandler = () => {
-    createCard()
-    setInputValue('')
     setIsVisibleInput(!isVisibleInput);
-  };
+  }
 
   const cardsList = useMemo(
     () => cards.list.filter((elem) => elem.columnId === column.id),
@@ -70,10 +54,7 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
           <>
             <Input
               placeholder={"Введите название карточки"}
-              onKeyPress={keyPress}
-              onBlur={blurHandler}
-              onChange={onChange}
-              value={inputValue}
+              onSubmit={onSubmit}
             />
             <ButtonWrapper>
               <Button

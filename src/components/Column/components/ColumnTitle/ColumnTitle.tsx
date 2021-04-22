@@ -7,30 +7,14 @@ import { useAppDispatch } from 'lib/hooks/hooks';
 
 const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
   const [isChange, setIsChange] = useState(false);
-  const [value, setValue] = useState(column.title)
 
   const dispatch = useAppDispatch()
 
-  const setTitle = () => {
+  const onSubmit = (value: string) => {
     if (value.trim()) {
       dispatch(setColumnTitle({id: column.id, title: value}))
       setIsChange(!isChange);
     }
-  };
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-        blurHandler()
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value)
-  }
-
-  const blurHandler = () => {
-    setTitle()
-    setIsChange(!isChange);
   };
 
   return (
@@ -40,10 +24,8 @@ const ColumnTitle: React.FC<{column: ColumnData}> = ({ column }) => {
       ) : (
         <Input
           placeholder={"Введите название карточки"}
-          onKeyPress={keyPress}
-          onBlur={blurHandler}
-          onChange={onChange}
-          value={value}
+          onSubmit={onSubmit}
+          value={column.title}
         />
       )}
       {!isChange && (

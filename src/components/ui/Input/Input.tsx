@@ -4,30 +4,29 @@ import styled from 'styled-components';
 
 interface InputSettings {
     placeholder: string,
-    onKeyPress(event: React.KeyboardEvent): void,
-    onBlur?(): void,
-    onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
-    value: string
+    onSubmit(value: string): void,
+    value?: string
 } 
 
-const Input: React.FC<InputSettings> = ({placeholder, onKeyPress, onBlur, onChange, value}) => {
-    const initialValues = { value: value };
+const Input: React.FC<InputSettings> = ({placeholder, value, onSubmit}) => {
 
     return (
       <StyledInput>
         <Form
-          onSubmit={() => {}}
-          initialValues={initialValues}
-          render={() => (
-            <Field
-              name="value"
-              component="input"
-              placeholder={placeholder}
-              onKeyPress={onKeyPress}
-              onBlur={onBlur}
-              onChange={onChange}
-              autoFocus
-            />
+          onSubmit={(value) => {
+            onSubmit(value.value || '')
+          }}
+          initialValues={{value: value}}
+          render={({ handleSubmit, form }) => (
+            <form onSubmit={handleSubmit}>
+              <Field
+                name="value"
+                component="input"
+                placeholder={placeholder}
+                onBlur={() => form.submit()}
+                autoFocus
+              />
+            </form>
           )}
         />
       </StyledInput>

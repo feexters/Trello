@@ -9,37 +9,20 @@ import { addComment } from "store";
 
 const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
   const { comments, user } = useAppSelector(state => state)
-  const [inputValue, setInputValue] = useState("");
   const [isVisibleInput, setIsVisibleInput] = useState(false);
   const dispatch = useAppDispatch()
 
-  const addNewComment = () => {
-    if (inputValue.trim()) {
+  const onSubmit = (value: string) => {
+    if (value.trim()) {
       const newComment: CommentData = {
         id: getId(),
-        value: inputValue,
+        value: value,
         author: user.name!,
         cardId: card.id,
       };
 
       dispatch(addComment(newComment))
     }
-  };
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      blurHandler();
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const blurHandler = () => {
-    addNewComment();
-    setIsVisibleInput(!isVisibleInput)
-    setInputValue("");
   };
   
   const commentsList = useMemo(
@@ -52,10 +35,8 @@ const CardComments: React.FC<{ card: CardData }> = ({ card }) => {
       {isVisibleInput ? (
         <TextArea
           placeholder={"Введите комментарий"}
-          onKeyPress={keyPress}
-          onBlur={blurHandler}
-          onChange={onChange}
-          value={inputValue}
+          onSubmit={onSubmit}
+          value={""}
         />
       ) : (
         <Button clickHandler={() => setIsVisibleInput(!isVisibleInput)}>

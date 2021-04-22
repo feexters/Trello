@@ -7,31 +7,14 @@ import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 
 const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
-  const [value, setValue] = useState(card.description)
   const user = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
 
-  const setDescription = () => {
+  const onSubmit = (value: string) => {
     if (value.trim()) {
       dispatch(setCardDescription({id: card.id, value: value}))
       setIsChange(!isChange);
     }
-    console.log(value);
-  };
-
-  const keyPress = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      blurHandler();
-    }
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(event.target.value);
-  };
-
-  const blurHandler = () => {
-    setDescription();
-    setIsChange(!isChange);
   };
 
   return (
@@ -43,10 +26,8 @@ const CardDescription: React.FC<{card: CardData}> = ({ card }) => {
       {isChange && (
         <TextArea
           placeholder={"Введите описание карточки"}
-          onKeyPress={keyPress}
-          onBlur={blurHandler}
-          onChange={onChange}
-          value={value}
+          onSubmit={onSubmit}
+          value={card.description}
         />
       )}
     </Wrapper>
