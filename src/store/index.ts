@@ -1,4 +1,4 @@
-export { store } from './store'
+export { store, persistor } from './store'
 export type { RootState, AppDispatch } from './store'
 export { setUserName, setColumnTitle } from './slices'
 export { addCard, setCardTitle, setCardDescription, deleteCard } from './slices'

@@ -1,10 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { ColumnData } from "lib/interfaces";
-import { StorageService } from "lib/utils"
+
+
+const initialColumns: ColumnData[] = [
+  {id: '0', title: "TODO"},
+  {id: '1', title: "In Progress",},
+  {id: '2', title: "Testing"},
+  {id: '3', title: "Done"}
+];
 
 export const columns = createSlice({
   name: "columns",
-  initialState: { list: StorageService.getColumns() },
+  initialState: { list: initialColumns },
   reducers: { 
     setColumnTitle: (state, action: PayloadAction<ColumnData>) => {
       const {id, title} = action.payload
@@ -13,7 +20,6 @@ export const columns = createSlice({
             elem.title = title
           }
       })
-      StorageService.addColumns(state.list)
     },
   },
 });
