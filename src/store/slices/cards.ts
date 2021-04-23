@@ -14,7 +14,6 @@ export const cards = createSlice({
 
     setCardTitle: (state, action: PayloadAction<{id: string, value: string}>) => {
       const { id, value } = action.payload;
-      console.log(value)
       state.list.forEach((elem) => {
         if (elem.id === id) {
           elem.title = value;
