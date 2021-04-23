@@ -1,35 +1,35 @@
 import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { CardPreview } from "components/Сard";
-import { ColumnData, CardData } from 'lib/interfaces'
+import { ColumnData, CardData } from "lib/interfaces";
 import { Button, Input } from "components/ui";
 import { getId } from "lib/utils";
 import ColumnTitle from "./components/ColumnTitle/ColumnTitle";
 import { addCard } from "store";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
+import { Field, Form } from "react-final-form";
 
 const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
   const [isVisibleInput, setIsVisibleInput] = useState(false);
-  
-  const dispatch = useAppDispatch()
 
-  const { cards, user } = useAppSelector(state => state)
+  const dispatch = useAppDispatch();
+
+  const { cards, user } = useAppSelector((state) => state);
 
   const onSubmit = (value: string) => {
     if (value.trim()) {
-
       const newCard: CardData = {
         id: getId(),
         title: value,
         author: user.name!,
         description: "",
-        columnId: column.id
-      }
+        columnId: column.id,
+      };
 
-      dispatch(addCard(newCard))
+      dispatch(addCard(newCard));
     }
     setIsVisibleInput(!isVisibleInput);
-  }
+  };
 
   const cardsList = useMemo(
     () => cards.list.filter((elem) => elem.columnId === column.id),
@@ -47,21 +47,36 @@ const Column: React.FC<{ column: ColumnData }> = ({ column }) => {
 
       <InputWrapper>
         {!isVisibleInput ? (
-          <Button
-            clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-          >+ Добавить еще одну карточку</Button>
+          <Button clickHandler={() => setIsVisibleInput(!isVisibleInput)}>
+            + Добавить еще одну карточку
+          </Button>
         ) : (
           <>
-            <Input
-              placeholder={"Введите название карточки"}
-              onSubmit={onSubmit}
+            <Form
+              onSubmit={(value) => {
+                onSubmit(value.value || "");
+              }}
+              initialValues={{ value: '' }}
+              render={({ handleSubmit, form }) => (
+                <form onSubmit={handleSubmit}>
+                  <Field
+                    name="value"
+                    placeholder={"Введите название карточки"}
+                    onBlur={() => form.submit()}
+                    component={Input}
+                    autoFocus
+                  />
+                  <ButtonWrapper>
+                    <Button
+                      type="submit"
+                      isSuccessTheme
+                    >
+                      Добавить
+                    </Button>
+                  </ButtonWrapper>
+                </form>
+              )}
             />
-            <ButtonWrapper>
-              <Button
-                clickHandler={() => setIsVisibleInput(!isVisibleInput)}
-                isSuccessTheme
-              >Добавить</Button>
-            </ButtonWrapper>
           </>
         )}
       </InputWrapper>
@@ -86,20 +101,19 @@ const Wrapper = styled.div`
   }
 `;
 
-
 const InputWrapper = styled.div`
   width: 100%;
   max-width: 400px;
-  
+
   & > * {
-    margin: 5px
+    margin: 5px;
   }
-`
+`;
 
 const ButtonWrapper = styled.div`
   & > * {
     margin-right: 10px;
   }
-`
+`;
 
-export default Column
+export default Column;

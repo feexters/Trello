@@ -4,6 +4,7 @@ import { Button, Input } from "components/ui";
 import { CardData } from "lib/interfaces";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { setCardTitle } from "store";
+import { Field, Form } from "react-final-form";
 
 const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
   const [isChange, setIsChange] = useState(false)
@@ -24,10 +25,22 @@ const CardTitle: React.FC<{card: CardData}> = ({ card }) => {
       {!isChange ? (
         <Title>{card.title}</Title>
       ) : (
-        <Input
-          placeholder={"Введите название карточки"}
-          onSubmit={onSubmit}
-          value={card.title}
+        <Form
+          onSubmit={(value) => {
+            onSubmit(value.value || "");
+          }}
+          initialValues={{ value: card.title }}
+          render={({ handleSubmit, form }) => (
+            <form onSubmit={handleSubmit}>
+              <Field
+                name="value"
+                placeholder={"Введите название карточки"}
+                onBlur={() => form.submit()}
+                component={Input}
+                autoFocus
+              />
+            </form>
+          )}
         />
       )}
 

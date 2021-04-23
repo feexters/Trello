@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { CommentData } from "lib/interfaces";
 import styled from "styled-components";
 import { ChangePanel } from "components/ChangePanel";
-import { TextArea } from "components/ui";
+import { Button, TextArea } from "components/ui";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { deleteComment, setCommentValue } from "store";
+import { Field, Form } from "react-final-form";
 
 const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
+  const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch()
-
-  const user = useAppSelector(state => state.user)
-  const [isChange, setIsChange] = useState(false)
+  const user = useAppSelector((state) => state.user);
+  const [isChange, setIsChange] = useState(false);
 
   const onSubmit = (value: string): void => {
     if (value.trim()) {
-      dispatch(setCommentValue({id: comment.id, value: value}))
-      setIsChange(!isChange)
+      dispatch(setCommentValue({ id: comment.id, value: value }));
+      setIsChange(!isChange);
     }
-  }
-  
+  };
+
   return (
     <Wrapper>
       {!isChange ? (
@@ -29,10 +29,31 @@ const Comment: React.FC<{ comment: CommentData }> = ({ comment }) => {
         </>
       ) : (
         isChange && (
-          <TextArea
-            placeholder={"Введите название карточки"}
-            onSubmit={onSubmit}
-            value={comment.value}
+          <Form
+            onSubmit={(value) => {
+              onSubmit(value.value || "");
+              value.value = "";
+            }}
+            initialValues={{ value: comment.value }}
+            render={({ handleSubmit, form }) => (
+              <form onSubmit={handleSubmit}>
+                <Field
+                  name="value"
+                  placeholder={"Введите комментарий"}
+                  onBlur={() => form.submit()}
+                  component={TextArea}
+                  autoFocus
+                />
+                <ButtonWrapper>
+                  <Button
+                    type="submit"
+                    isSuccessTheme
+                  >
+                    Сохранить
+                  </Button>
+                </ButtonWrapper>
+              </form>
+            )}
           />
         )
       )}
@@ -57,7 +78,13 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const Value = styled.div`
+const ButtonWrapper = styled.div`
+  & > * {
+    margin-right: 10px;
+  }
+`;
+
+const Value = styled.pre`
   font-size: 1.5rem;
 `;
 

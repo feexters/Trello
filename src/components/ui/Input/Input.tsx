@@ -1,53 +1,26 @@
 import React from 'react';
-import { Field, Form } from 'react-final-form';
+import { FieldRenderProps } from 'react-final-form';
 import styled from 'styled-components';
 
-interface InputSettings {
-    placeholder: string,
-    onSubmit(value: string): void,
-    value?: string
-} 
+type InputProps = FieldRenderProps<string, any>
 
-const Input: React.FC<InputSettings> = ({placeholder, value, onSubmit}) => {
-
+const Input: React.FC<InputProps> = ({ input, meta, ...rest }: InputProps) => {
     return (
-      <StyledInput>
-        <Form
-          onSubmit={(value) => {
-            onSubmit(value.value || '')
-          }}
-          initialValues={{value: value}}
-          render={({ handleSubmit, form }) => (
-            <form onSubmit={handleSubmit}>
-              <Field
-                name="value"
-                component="input"
-                placeholder={placeholder}
-                onBlur={() => form.submit()}
-                autoFocus
-              />
-            </form>
-          )}
-        />
-      </StyledInput>
+      <StyledInput {...input} {...rest}/>
     );
 }
 
-const StyledInput = styled.div`
+const StyledInput = styled.input`
   width: 100%;
-  
-  input {
-    width: 100%;
-    padding: 5px 10px;
-    background-color: white;
-    border-radius: 5px;
-    align-self: center;
-    border: 1px solid black;
-    font-size: 1.5rem;
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 5px;
+  align-self: center;
+  border: 1px solid black;
+  font-size: 1.5rem;
 
-    &:focus {
-      outline: none;
-    }
+  &:focus {
+    outline: none;
   }
 `;
 
